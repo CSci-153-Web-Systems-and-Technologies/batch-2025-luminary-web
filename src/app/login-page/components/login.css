@@ -22,7 +22,8 @@
     /*Sets a clamp so that the font-size 
     responsively adjusts between 40px and 90px
     based on aspect ratio.*/
-    font-size : min(max(7vw, 40px), 90px);
+    font-size : min(max(8vw, 40px), 100px);
+    font-weight : 400;
     color : #FFFFFF;
 }
 
@@ -50,7 +51,7 @@
     border-radius: 20px;
     box-shadow : 0px 20px 40 0 #000000;
     padding : 30px; 
-    gap : 30px;
+    gap : 40px;
 }       
 
 #login-component h2{
@@ -61,12 +62,14 @@
 }
 
 #login-component input{
+    font-family : 'Italiana';
     background-color: transparent;
     border: 2px solid transparent;
     border-bottom : 2px solid white;
     width : 100%;
     height : 40px;
-    font-size : min(2vw, 30px);
+    font-size : min(max(3vw, 20px), 35px);
+    padding-bottom : 4px;
     color : white;
 }
 
@@ -91,4 +94,52 @@
     cursor : pointer;
 }
 
+.sign-in{
+    padding : 15px;
+    border-radius : 10px;
+    font-size : min(max(2.25vw, 20px), 30px);
+    font-weight : 700;
+    border : none;
+}
 
+.sign-in:hover{
+    background-color : rgb(89, 85, 100);
+    border : none;
+    outline : none;
+}
+.sign-with-email-div{
+    display : flex;
+    justify-content: center;
+}
+.sign-with-email{
+    background : none;
+    border : none;
+    width : 52%;
+    color : white;
+    font-size : min(max(2.25vw, 20px), 30px);
+    border-bottom : 3px solid white;
+    font-weight : bold;
+}
+
+.no-account{
+    display : flex;
+    gap : 5px;
+}
+
+.no-account h3{
+    font-family : 'Italiana';
+    margin : 0;
+    color : white;
+    font-weight : 500;
+    font-size : min(max(2.25vw, 20px), 30px);
+}
+
+.no-account button{
+    border : none;
+    background : transparent;
+    border : none;
+    color : white;
+    font-weight: bolder;
+    font-size: min(max(2.25vw, 20px), 30px);
+    font-family : Roboto; 
+}
