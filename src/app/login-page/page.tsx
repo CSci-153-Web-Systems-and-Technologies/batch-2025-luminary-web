@@ -1,7 +1,4 @@
-import { Italiana } from "next/font/google"
-const italianaFont = Italiana({
-    weight : "400",
-});
+
 export default function LoginPage(){
     return(
         <div className="login-page">

@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const {push} = useRouter();
   useEffect(() => {
-    push('/login-page');
+    push('/main-page');
   },[])
   return (
     <>

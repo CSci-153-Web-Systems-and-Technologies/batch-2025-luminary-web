@@ -1,5 +1,5 @@
 import Link from "next/link"
-import './components/login.css';
+import './styles/mainpage.css';
 export default function MainLayout({children} : {children : React.ReactNode}){
     return(
         <>
