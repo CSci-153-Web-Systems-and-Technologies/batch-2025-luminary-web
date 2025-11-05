@@ -13,10 +13,10 @@ export default function MainPage(){
                     <button className='profile-button'>
                         <img src="./profileButton.svg" alt="" />
                     </button>
-                    <BookOfTheDay></BookOfTheDay>
+                   
             </header>
             <main>
-                 
+                <BookOfTheDay></BookOfTheDay>
             </main>
         </>
     )
