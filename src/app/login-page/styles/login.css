@@ -1,3 +1,6 @@
+:root{
+    --font-size : min(max(2.25vw, 20px), 30px);
+}
 .component-flex{
     display : flex;
     background-color : none;
@@ -5,7 +8,7 @@
     padding : 30px;
 }
 
-#title-component{   
+#title-component{
     flex-basis : 50%;
     font-family : 'Italiana';
     display : flex;
@@ -25,6 +28,7 @@
     font-size : min(max(8vw, 40px), 100px);
     font-weight : 400;
     color : #FFFFFF;
+    letter-spacing: 6px;
 }
 
 .p-tags{
@@ -39,6 +43,7 @@
     margin : 0;
     /* background-color: white; */
     color : #a9a9a9;
+    letter-spacing: 5px;
 }
 #login-component{
     display : flex;
@@ -82,7 +87,7 @@
     background : transparent;
     border : 0px none;
     color : white;
-    font-size : min(max(2.25vw, 20px), 30px);
+    font-size : var(--font-size);
     width : 50%;
 }
 #login-component .forgot-password:hover{
@@ -97,7 +102,7 @@
 .sign-in{
     padding : 15px;
     border-radius : 10px;
-    font-size : min(max(2.25vw, 20px), 30px);
+    font-size :  var(--font-size);
     font-weight : 700;
     border : none;
 }
@@ -116,7 +121,7 @@
     border : none;
     width : 52%;
     color : white;
-    font-size : min(max(2.25vw, 20px), 30px);
+    font-size : var(--font-size);
     border-bottom : 3px solid white;
     font-weight : bold;
 }
@@ -131,7 +136,7 @@
     margin : 0;
     color : white;
     font-weight : 500;
-    font-size : min(max(2.25vw, 20px), 30px);
+    font-size : var(--font-size);
 }
 
 .no-account button{
@@ -140,6 +145,53 @@
     border : none;
     color : white;
     font-weight: bolder;
-    font-size: min(max(2.25vw, 20px), 30px);
+    font-size: var(--font-size);
     font-family : Roboto; 
+}
+
+@media screen and (max-width : 600px){
+    .component-flex{
+        flex-direction: column;
+        align-items: center;
+        padding : 0px;
+        gap : 10px;
+    }
+    #title-component{
+        gap : 15px;
+    }
+    #title-component h2{
+        font-size : 5rem;
+        letter-spacing : 4px;
+    }
+    #title-component div p{
+        font-size : 35px;
+        letter-spacing: 5px;
+    }
+    .p-tags{
+        margin-bottom : 15px;
+    }
+
+    #login-component{
+        width : 80vw;
+        gap : 30px;
+
+    }
+    .no-account{
+        flex-direction : column;
+        align-items: start;
+        gap : 10px;
+    }
+    
+    #login-component h2{ 
+        margin : 10 0 0 0;
+    }
+    #login-component .forgot-password{
+        width : 60%;
+    }
+    #login-component .forgot-password:hover{
+        width : 60%;
+    }
+    .sign-with-email{
+        width : 60%;
+    }
 }

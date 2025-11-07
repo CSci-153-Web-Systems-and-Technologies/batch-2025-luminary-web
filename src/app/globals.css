@@ -9,3 +9,11 @@ body{
 }
 
 
+::-webkit-scrollbar{
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+    background : #16171F;
+    border-radius : 20px;
+}
