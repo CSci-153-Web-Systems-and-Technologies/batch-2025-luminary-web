@@ -1,0 +1,94 @@
+@import url('../components/book-card.tsx');
+#book-selection{
+    display : flex;
+    flex-direction: column;
+    gap : 2vw;
+}
+
+
+#book-genre{    
+    padding-left : 2vw;
+    padding-top : 2vw;
+    font-size : min(max(3.5vw, 35px), 40px);
+    font-weight : light;
+    font-family : Italiana;
+    color : white;
+
+}
+
+#books{
+    overflow: auto;
+    padding-bottom : 1vw;
+    /* background-color: blue; */
+    width : 97vw;
+}
+
+#books::-webkit-scrollbar{
+    background : #2B2940;
+    border-radius : 20px;
+}
+#books::-webkit-scrollbar-thumb{
+    background : #16171F ;
+    border-radius : 20px;
+}
+
+#book-genre span{
+    border-bottom : 2px solid white;
+}
+
+
+#book-list{
+    /* background-color: black; */
+    box-sizing :content-box;
+    width : 100%;
+    height : auto;
+    margin : 0px;
+    padding : 0;
+    padding-bottom : 10px;
+    display : flex;
+    flex-direction : row;
+    list-style-type: none;
+    gap : 7vw;
+    /* overflow : scroll; */
+    /* background-color: blue; */
+}
+#book-list li{
+    padding : 0px;
+    margin : 0px;
+    background-color: #16171F;
+    height : min(max(25vw, 250px), 350px);
+    width : min(max(17.5vw, 175px), 250px);
+    border-radius : 20px;
+    flex-shrink : 0;
+    /*setting flex-shrink to 0 prevents the 
+    elements from shrinking, causing an overflow.
+    */
+    display : flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#booklist li BookCard:hover{
+    cursor : pointer;
+}
+
+#cover-container{
+    height : 95%;
+    width : 90%;
+    background-color: black;
+    border-radius : 20px;
+    border : 4px solid #2B2940;
+    overflow : hidden;
+}
+
+#cover-container img{
+    height : 100%;
+    width : 100%;
+}
+::-webkit-scrollbar-track{
+    background : transparent;
+}
+
+#cover-container:hover{
+    cursor:pointer;
+}
