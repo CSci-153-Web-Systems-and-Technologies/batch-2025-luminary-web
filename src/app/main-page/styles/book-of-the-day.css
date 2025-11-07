@@ -120,6 +120,10 @@
     gap : 2px;
 }
 
+#read-now:hover{
+    background-color: rgb(89, 85, 100);;
+}
+
 #read-now-text{
     flex-basis : 75%;
     height : 100%;

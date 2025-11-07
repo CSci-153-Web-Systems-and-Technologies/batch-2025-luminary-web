@@ -1,3 +1,4 @@
+import BookCard from "./book-card"
 interface BookSelectionType{
     bookGenre : string,
 }
@@ -14,30 +15,21 @@ export default function BookSelection( {bookGenre} : BookSelectionType )
                 <div id="books">
                     <ul id="book-list">
                         <li >
-                            <div id="cover-container">
-                                <img src="mock-data/percyjackson.jpg" alt="" />
-                            </div>
+                            <BookCard imgUrl="mock-data/percyjackson.jpg"></BookCard>
                         </li>
                         <li >
-                            <div id="cover-container">
-                                <img src="mock-data/percyjackson.jpg" alt="" />
-                            </div>
+                            <BookCard imgUrl="mock-data/percyjackson.jpg"></BookCard>
                         </li>
                         <li >
-                            <div id="cover-container">
-                                <img src="mock-data/percyjackson.jpg" alt="" />
-                            </div>
+                            <BookCard imgUrl="mock-data/percyjackson.jpg"></BookCard>
                         </li>
                         <li >
-                            <div id="cover-container">
-                                <img src="mock-data/percyjackson.jpg" alt="" />
-                            </div>
-                        </li>
+                            <BookCard imgUrl="mock-data/percyjackson.jpg"></BookCard>
+                        </li>                        
                         <li >
-                            <div id="cover-container">
-                                <img src="mock-data/percyjackson.jpg" alt="" />
-                            </div>
+                            <BookCard imgUrl="mock-data/percyjackson.jpg"></BookCard>
                         </li>
+                        
                     </ul>
                 </div>
             </div>

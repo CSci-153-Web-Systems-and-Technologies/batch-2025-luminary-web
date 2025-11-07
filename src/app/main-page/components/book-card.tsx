@@ -5,9 +5,10 @@ interface BookCardProp{
 export default function BookCard({imgUrl} : BookCardProp){
     return(
         <>
-            <div id="img-container">
-                <img src="" alt="" />
+            <div id="cover-container">
+                <img src={imgUrl} alt="book card" />
             </div>
         </>
     )
 }
+

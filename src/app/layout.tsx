@@ -32,7 +32,7 @@ export default function RootLayout({
           <link rel="preconnect" href="https://fonts.gstatic.com"/>
           <link href="https://fonts.googleapis.com/css2?family=Italiana&display=swap" rel="stylesheet"/> */}
         </head>
-            {children}
+        {children}
     </html>
   );
 }
