@@ -1,0 +1,17 @@
+header{
+    /* background-color: blue; */
+    width : 100vw;
+    height : 15vh;
+}
+
+main{
+    width : 100vw;
+    height : 70vh;
+    background-color: aqua;
+}
+
+footer{
+    width : 100vw;
+    height : 15vh;
+    /* background-color: navy; */
+}

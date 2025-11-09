@@ -1,0 +1,301 @@
+button:hover{
+    cursor : pointer;
+}
+#book-container{
+    width : 100vw;
+    height : min(60vw, 700px);
+    margin-top : 20px;
+    /* background-color: aqua; */
+    display : flex;
+    justify-content: center;
+}
+
+#outer-container{
+    width : 90%;
+    height : 100%;
+    /* background-color: rgb(0, 162, 255); */
+    display : flex;
+    
+}
+
+#book-img-options{
+    width : 45%;
+    height : 100%;
+    /* background-color: azure; */
+    display : flex;
+    flex-direction: column;
+    align-items: center;
+}
+#book-information{
+    width : 55%;
+    height : 100%;
+    /* background-color: rgb(95, 95, 81); */
+}
+
+
+#book-img-container{
+    height : 85%;
+    max-width : 500px;
+    width : 100%;
+    background: blue;
+    overflow : hidden;
+    border-radius : 40px;
+    box-shadow : 0 0 50 20 #1C2224;
+}
+
+#book-img-container img{
+    height : auto;
+    width : 100%;
+    object-fit: cover;
+}
+
+#read-chapter
+{
+    width : 100%;
+    max-width : 500px;
+    height : 15%;
+    /* background-color: gray; */
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    gap : 10px;
+}
+#read-chapter button{
+    flex-basis : 43.5%;
+    height : 75%;
+}
+#read-chapter button:hover{
+    cursor : pointer;
+}
+#read-now{
+    font-family : Roboto;
+    font-weight : bolder;
+    border-radius : 10px;
+    box-sizing : border-box;
+    padding : 0 20 0 20;
+    border : transparent;
+    height : 100%;
+    display :flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap : 2px;
+}
+
+#read-now:hover{
+    background-color: rgb(89, 85, 100);;
+}
+
+#read-now-text{
+    flex-basis : 75%;
+    height : 100%;
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    font-size : min(max(1.5vw, 1.20em), 1.45rem);
+}
+#chevron-container{
+    padding : 0px;
+    margin : 0px;
+    height : 100%;
+    width: 25%;
+  
+    /* background-color: black; */
+}
+
+#chevron-container img{
+    width : 100%;
+    height : 100%;
+}
+
+#chapterlist{
+    background : transparent;
+    border : none;
+    font-family : Roboto;
+    font-weight : bolder;
+    font-size : min(max(1.5vw, 1.20em), 2rem);
+    color : white;
+}
+
+
+/*Right side*/
+
+#book-information{
+    box-sizing : border-box;
+    padding : 5px;
+}
+
+#book-info h1{
+    font-size : min(5vw,55px);
+    color : white;
+    font-family : Italiana;
+    font-weight : lighter;
+    -webkit-text-stroke : 0.25px white;;
+    margin : 10 0 10 0;
+    padding-left : 10px;
+}
+
+#author-genre{
+    display : flex;
+    /* background-color: aqua; */
+    font-size : min(3vw,40px);
+    margin-bottom : 10px;
+}
+#author-genre p{
+    font-family : Italiana;
+    font-weight : lighter;
+    color : white;
+    padding-left : 10px;
+    margin : 0px;
+}
+#book-options{
+    /* background-color: black; */
+    box-sizing : border-box;
+    padding-left : 10px;
+}
+
+#book-options button{
+    height : 100%;
+    margin-right : 2vw;
+    background : transparent;
+    border : none;
+}
+#book-options button img{
+    height : 100%;
+    width : 100%;
+}
+
+#book-summary{
+    /* background-color: white; */
+    font-size : min(2.5vw, 40px);
+    padding-left : 10px;
+    color : white;
+    font-family : Italiana;
+    -webkit-text-stroke : 0.25px white;
+}
+
+#chapter-list{
+    width : 55%;
+    height : 100%;
+    /* background-color: rgb(95, 95, 81); */
+    display : flex;
+    flex-direction: column;
+    justify-content: end;
+}
+
+#chapter-list h1{
+    margin : 0px;
+    padding : 0px 0 0 20;
+    align-content : center;
+    font-size : min(4vw, 55px);
+    color : white;
+    font-family : Italiana;
+    letter-spacing: 2px;;
+    height : 20%;
+}
+#chapter-list ul{
+    height : 80%;
+    width : 100%;
+    /* background-color: aquamarine; */
+    padding : 10;
+    margin : 0 0 0 10;
+    box-sizing : border-box;
+    overflow : auto;
+}
+#chapter-list li{
+    /* background-color :blanchedalmond; */
+    padding : 0;
+    margin : 0;
+    display : flex;
+    justify-content: space-between;
+    border-bottom : 4px solid white;
+    height : auto;
+    align-items: center;
+}
+#chapter-list li p{
+    margin : 0;
+    font-size : min(2vw, 40px);
+    align-content: center;
+    font-family : Italiana;
+    color : white;
+    width : 80%;
+    overflow-wrap : break-word;
+}
+#chapter-list li button img{
+    height : 100%;
+    width : 100%;
+}
+#chapter-list li button{
+    height : auto;
+    width : min(15%, 90px);
+    background : transparent;
+    border : none;
+}
+
+@media screen and (max-width : 700px) {
+    #book-container{
+        height : auto;
+    }
+    #book-img-options{
+        width : 60vw;
+        height : 80vw;
+        justify-content: center;
+    }
+    #book-img-container{
+        /* height */
+        height : 100%;
+        width : 100%;
+    }
+    #outer-container{
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #book-information{
+        width : 80%;
+        height : auto;
+        
+    }
+   
+    #book-info, #author-genre{
+        text-align: center;
+    }
+    #book-info h1{
+        font-size : 6vw;
+    }
+    #book-options{
+        justify-content: center;
+        display : flex;
+    }
+    #author-genre{
+        display : flex;
+        justify-content: center;
+        font-size : 20px;
+    }
+    #read-chapter{
+        height : 15vw;
+    }
+    #read-now-text{
+        font-size : 100%;
+    }
+    #book-summary{
+        font-size : 1.25rem;
+        
+    }
+
+    #chapter-list{
+        margin : 0px;
+        width : 100%;
+        overflow : none;
+        /* background-color: black; */
+    }
+    #chapter-list ul{
+        height : auto;
+        overflow : none;
+        margin : 0px;
+    }
+
+    #chapter-list ul li p{
+        font-size: 4.5vw;
+    }
+
+}
