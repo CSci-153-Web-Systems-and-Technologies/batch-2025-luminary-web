@@ -129,7 +129,7 @@ button:hover{
     color : white;
     font-family : Italiana;
     font-weight : lighter;
-    -webkit-text-stroke : 0.25px white;;
+    -webkit-text-stroke : 0.25px white;
     margin : 10 0 10 0;
     padding-left : 10px;
 }

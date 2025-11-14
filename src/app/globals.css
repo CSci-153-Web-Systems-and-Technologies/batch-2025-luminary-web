@@ -10,6 +10,10 @@ body{
 }
 
 
+button{
+    cursor : pointer;
+}
+
 ::-webkit-scrollbar{
     background: transparent;
 }

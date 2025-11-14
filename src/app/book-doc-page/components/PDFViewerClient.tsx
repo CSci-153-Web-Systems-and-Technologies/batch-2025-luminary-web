@@ -1,0 +1,80 @@
+"use client";
+
+import { useState } from "react";
+import { Document, Page, pdfjs } from "react-pdf";
+import dynamic from "next/dynamic";
+import "react-pdf/dist/Page/TextLayer.css";
+import "react-pdf/dist/Page/AnnotationLayer.css";
+
+
+
+
+pdfjs.GlobalWorkerOptions.workerSrc = new URL(
+  "pdfjs-dist/build/pdf.worker.min.mjs",
+  import.meta.url,
+).toString();
+
+
+interface PDFViewerClientProps{ 
+  pageNumber : number,
+  numPages : number,
+  setNumPages: (numPages : number) => void,
+  setPageNumber : (pageNumber : number) => void, 
+}
+
+const PDFViewerClient = ( {pageNumber, numPages, setNumPages, setPageNumber} : PDFViewerClientProps) => {
+  
+
+  const onDocumentLoadSuccess = ({ numPages } : {numPages : number}) => {
+    setNumPages(numPages);
+  };
+
+  
+
+  return (
+    <div className="div-container" style={{ height : "100%", width : "100%"}}>
+      
+      <div
+        style={{
+          border: "1px solid #ccc",
+          borderRadius: "4px",
+          overflow: "hidden",
+          display: "flex",
+          justifyContent: "center",
+        }}
+      >
+        <Document
+          file="mock-data/WeHunttheFlame.pdf"
+          onLoadSuccess={onDocumentLoadSuccess}
+          loading={
+            <div style={{ padding: "2rem", textAlign: "center" }}>
+              Loading PDF...
+            </div>
+          }
+          error={
+            <div
+              style={{
+                padding: "2rem",
+                textAlign: "center",
+                color: "red",
+              }}
+            >
+              Failed to load PDF. Please make sure the file exists in the public
+              folder.
+            </div>
+          }
+        >
+          <Page
+            pageNumber={pageNumber}
+            renderTextLayer={true}
+            renderAnnotationLayer={true}
+            // height={639}
+            width={800}
+          />
+        </Document>
+      </div>
+    </div>
+  );
+};
+
+export default PDFViewerClient;

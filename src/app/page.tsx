@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 export default function Home() {
   const {push} = useRouter();
   useEffect(() => {
-    push('/main-page');
+    push('/book-info-page');
   },[])
   return (
     <>
