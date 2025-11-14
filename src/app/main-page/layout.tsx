@@ -5,9 +5,7 @@ import './styles/book-selection.css'
 export default function MainLayout({children} : {children : React.ReactNode}){
     return(
         <>
-        <body>
             {children}
-        </body>
         </>
     )
 }
