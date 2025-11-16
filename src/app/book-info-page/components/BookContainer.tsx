@@ -1,5 +1,7 @@
 "use client";
 import {useState, useEffect} from 'react';
+import { useRouter } from 'next/navigation';
+import styles from '../styles/book-container.module.css'
 interface BookContainerProps{
     imgUrl : string,
     bookTitle : string,
@@ -18,17 +20,24 @@ interface ReadChapterProps{
     setChapterMode : (x : boolean) => void,
 }
 function ReadChapter({isChapterMode, setChapterMode} : ReadChapterProps){
+    const {push} = useRouter();
+    function openBook(){
+        push('../../book-doc-page');
+    }
+    
     return(
-        <div id="read-chapter">
-            <button id="read-now">
-                <div id="chevron-container">
-                    <img id="chevron" src="chevron-right.svg" alt="" />
+        <div className={styles["read-chapter"]}>
+            <button className={styles["read-now"]}
+            onClick={openBook}
+            >
+                <div className={styles["chevron-container"]}>
+                    <img className={styles["chevron"]} src="chevron-right.svg" alt="" />
                 </div>
-                <div id="read-now-text">
+                <div className={styles["read-now-text"]}>
                     Read Now
                 </div>
                 </button>
-                <button id="chapterlist" style={isChapterMode ? chapterListEnabledStyle : {}}
+                <button className={styles["chapterlist"]} style={isChapterMode ? chapterListEnabledStyle : {}}
                         onClick={() => {setChapterMode(!isChapterMode)}}>
                 Chapter List
                 </button>
@@ -46,20 +55,20 @@ interface BookInfoProps{
 }
 function BookInfo({bookTitle, author, genre, bookSummary, isMobile, isChapterMode, setChapterMode} : BookInfoProps){
     return (
-        <div id="book-information">
-            <div id="book-info">
+        <div className={styles["book-information"]}>
+            <div className={styles["book-info"]}>
                 <h1>{bookTitle}</h1>    
-                <div id="author-genre">
+                <div className={styles["author-genre"]}>
                     <p>{author} | </p>
                     <p>{genre}</p>
                     {/* <p>isMobile: {isMobile.toString()}</p> */}
                 </div>
             </div>
-            <div id="book-options">
-                <button id="favorite">
+            <div className={styles["book-options"]}>
+                <button className={styles["favorite"]}>
                     <img src="star.svg" alt="" />
                 </button>
-                <button id="add-to-collection">
+                <button className={styles["add-to-collection"]}>
                     <img src="add-collection.svg" alt="" />
                 </button>
             </div>
@@ -68,7 +77,7 @@ function BookInfo({bookTitle, author, genre, bookSummary, isMobile, isChapterMod
             }
             {
             !isChapterMode ?  
-            <div id="book-summary">
+            <div className={styles["book-summary"]}>
                 <p>
                     {bookSummary}
                 </p>
@@ -84,7 +93,7 @@ interface ChapterListProps{
 }
 function ChapterList({isMobile} : ChapterListProps){
     return(
-        <div id='chapter-list'>
+        <div className={styles['chapter-list']}>
             {!isMobile && 
             <h1>
                 Chapters:
@@ -140,10 +149,10 @@ export default function BookContainer( {imgUrl, bookTitle, author, genre, bookSu
 
     return (
         <>
-            <div id="book-container">
-                <div id="outer-container">
-                    <div id="book-img-options">
-                        <div id="book-img-container">
+                <div className={styles["book-container"]}>
+                <div className={styles["outer-container"]}>
+                    <div className={styles["book-img-options"]}>
+                        <div className={styles["book-img-container"]}>
                             <img src={imgUrl} alt="book-img" />
                         </div>
                        {!isMobile && 

@@ -1,19 +1,27 @@
 'use client';
+import globalStyles from './styles/globals.module.css'
+import headerStyles from './styles/header.module.css'
+
 import { Document, Page, pdfjs } from "react-pdf";
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import { useState, useEffect } from "react";
 import dynamic from "next/dynamic";
 import PDFViewer from "./components/PDFViewer";
-// import './styles/header.css'
+import { useRouter } from 'next/navigation';
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
   import.meta.url,
 ).toString();
 
 
+//IMPORT MODALS:
+
+import CollectionModal from '../general-components/collection-modal';
 
 export default function Reader(){
+    const router = useRouter();
+
     const [numPages, setNumPages] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState(1);
 
@@ -25,12 +33,14 @@ export default function Reader(){
         setPageNumber(pageNumber + 1 >= numPages ? numPages : pageNumber + 1);
     return(
             <>
-                <header>
-                    <div className="left-hand-side">
-                        <button>
+               
+                {/* <CollectionModal></CollectionModal> */}
+                <header className={headerStyles['bookdoc-header']}>
+                    <div className={headerStyles["left-hand-side"]}>
+                        <button onClick={()=>{router.back();}}>
                             <img src="arrow-left.svg" alt="arrow-left" />
                         </button>
-                        <div id="book-info">
+                        <div className={headerStyles["book-info"]}>
                             <h1>
                                 We Hunt The Flame
                                 {/*To be replaced with {bookTitle} */}
@@ -44,26 +54,26 @@ export default function Reader(){
                         </div>
                     </div>
 
-                    <div className="right-hand-side">
-                        <button className="img-container">
-                            <img src="add-collection.svg" alt="" />
+                    <div className={headerStyles["right-hand-side"]}>
+                        <button className={headerStyles["img-container"]}>
+                            <img className={globalStyles['bookdoc-img']} src="add-collection.svg" alt="" />
                         </button>
-                        <button className="img-container">
-                            <img src="contents.svg" alt="" />
+                        <button className={headerStyles["img-container"]}>
+                            <img className={globalStyles['bookdoc-img']} src="contents.svg" alt="" />
                         </button>
-                        <button className="img-container">
+                        <button className={headerStyles["img-container"]}>
                             <img src="add-note.svg" alt="" />
                         </button>
-                        <button className="img-container">
-                            <img src="kebab-menu.svg" alt="" />
+                        <button className={headerStyles["img-container"]}>
+                            <img className={globalStyles['bookdoc-img']} src="kebab-menu.svg" alt="" />
                         </button>
 
-                        <button className="mobile-img-container">
-                            <img src="hamburgerButton.svg" alt="" />
+                        <button className={headerStyles["mobile-img-container"]}>
+                            <img className={globalStyles['bookdoc-img']} src="hamburgerButton.svg" alt="" />
                         </button>
                     </div>
                 </header>
-                <main>
+                <main className={globalStyles['bookdoc-main']}>
                         <PDFViewer 
                         pageNumber={pageNumber} 
                         numPages={numPages}
@@ -71,27 +81,26 @@ export default function Reader(){
                         setPageNumber={setPageNumber}  
                         />
                 </main>
-                <footer>
-                    <nav>
+                <footer className={globalStyles['bookdoc-footer']}>
+                    <nav className={globalStyles['bookdoc-nav']}>
                         <button>
-                            <img src="bookmark.svg" alt="bookmark" />
+                            <img className={globalStyles['bookdoc-img']}src="bookmark.svg" alt="bookmark" />
                         </button>
                         <button
                         onClick={goToPrevPage}
                         disabled={pageNumber <= 1}
                         >
-                        <img src="prev-page.svg" alt="prev-page" />
+                        <img className={globalStyles['bookdoc-img']} src="prev-page.svg" alt="prev-page" />
                         </button>
 
-                        <div id="page-info">
+                        <div className={globalStyles["page-info"]}>
 
-                            <input type="range"
+                            <input className={globalStyles['bookdoc-input']} type="range"
                             onChange={(e : React.ChangeEvent<HTMLInputElement>)=>{setPageNumber(Number(e.currentTarget.value))}}
                             min={1}
                             max={numPages}
                             step={1}
                             value={pageNumber}
-                            className="custom-slider"
                             />
                             
                             <p style={{ margin: 0, fontWeight: "bold", color: "#9397AA" }}>
@@ -102,10 +111,10 @@ export default function Reader(){
                         <button
                         onClick={goToNextPage}
                         >
-                        <img src="next-page.svg" alt="next-page" />
+                        <img  className={globalStyles['bookdoc-img']}src="next-page.svg" alt="next-page" />
                         </button>
 
-                         <div className="space-filler">
+                         <div className={globalStyles["space-filler"]}>
 
                     </div>
                     

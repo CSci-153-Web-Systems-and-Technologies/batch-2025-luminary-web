@@ -1,4 +1,8 @@
 "use client";
+
+
+import styles from './styles/mainpage.module.css';
+
 import { useState } from 'react';
 import BookOfTheDay from './components/book-of-the-day';
 import BookSelection from './components/book-selections';
@@ -6,7 +10,7 @@ export default function MainPage(){
     const [showNavBar, setShowNavBar] = useState(false);
     return(
         <>  
-            <header>
+            <header className={styles.mainheader}>
                     <button>
                          <img src="./hamburgerButton.svg" alt="hamburger-button"/>
                     </button>
@@ -16,12 +20,11 @@ export default function MainPage(){
                     </button>
                    
             </header>
-            <main>
+            <main className={styles.mainbody}>
                 <BookOfTheDay></BookOfTheDay>
                 <BookSelection bookGenre='Continue Reading'></BookSelection>
                 <BookSelection bookGenre='Fantasy'></BookSelection>
                 <BookSelection bookGenre='Romance'></BookSelection>
-                
             </main>
         </>
     )

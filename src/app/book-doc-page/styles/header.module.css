@@ -1,4 +1,4 @@
-header{
+.bookdoc-header{
     /* background-color: blue; */
     width : 100vw;
     height : 15vh;
@@ -19,7 +19,7 @@ header{
     padding : 0px;
     border:none;
 }
-#book-info{
+.book-info{
     /* background-color: aqua; */
     height : 100%;
     display : flex;
@@ -29,14 +29,14 @@ header{
     color : white;
     font-family : Italiana;
 }
-h1{
+.bookdoc-header h1{
     /* background-color: blue; */
     font-size: max(min(3.5vw, 45px), 30px);
     margin:0px;
     font-weight : lighter;
     -webkit-text-stroke : 0.25px white;
 }
-p{
+.bookdoc-header p{
     font-size : max(min(2.5vw, 35px), 20px);
     margin : 0px;
 }
