@@ -1,5 +1,15 @@
+"use client";
+import { useRouter } from "next/navigation"
+
+
+
 
 export default function LoginPage(){
+    const {push} = useRouter();
+    
+    function authenticateAndMoveToMain(){
+        push('../main-page');
+    }
     return(
         <div className="login-page">
            <div className="component-flex">
@@ -15,7 +25,11 @@ export default function LoginPage(){
                     <input type="text" placeholder="Username" />
                     <input type="text" placeholder="Password" />
                     <button className="forgot-password">Forgot Password?</button>
-                    <button className="sign-in">Sign in</button>
+                    <button className="sign-in"
+                    onClick={()=>{
+                        authenticateAndMoveToMain();
+                    }}
+                    >Sign in</button>
                     <div className="sign-with-email-div">
                         <button className="sign-with-email">Sign in with e-mail</button>
                     </div>

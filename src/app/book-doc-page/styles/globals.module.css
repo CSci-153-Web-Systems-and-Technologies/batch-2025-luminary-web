@@ -1,28 +1,25 @@
-body{
-    overflow : auto;
-}
 
-main{
+.bookdoc-main{
     width : 100vw;
     height : 70vh;
     background-color: white;
     overflow:auto;
 }
 
-footer{
+.bookdoc-footer{
     width : 100vw;
     height : 15vh;
     /* background-color: navy; */
 }
 
-#viewport-container{
+.viewport-container{
     height : 100%;
     width : 100%;
     overflow : auto;
 }
 
 
-nav{
+.bookdoc-nav{
     height : 100%;
     width : 100%;
     display : flex;
@@ -33,7 +30,7 @@ nav{
     margin:0px;
 }
 
-nav button{
+.bookdoc-nav button{
     min-height : 75px;
     min-width : 75px;
     width : 10vw;
@@ -46,17 +43,17 @@ nav button{
 
 
 
-img{
+.bookdoc-img{
     height : 50%;
     width : 50%;
 }
-input{
+.bookdoc-input{
     width : 100%;
     color : grey;
     accent-color: #9397AA;
 }
 
-#page-info{
+.page-info{
     /* background-color: aqua; */
     height : 100%;
     display : flex;
@@ -66,7 +63,7 @@ input{
     flex-direction: column;
 }
 
-#page-info p{
+.page-info p{
     /* background-color: blue; */
     padding : 2vh;
     display : flex;
@@ -75,7 +72,7 @@ input{
     align-items: center;
     font-family: Roboto;
 }
-#page-info p input{
+.page-info p input{
     width : 35px;
     background-color: transparent;
     border : none;

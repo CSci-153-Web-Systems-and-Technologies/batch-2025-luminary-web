@@ -3,7 +3,7 @@ import { useRouter } from "next/navigation"
 interface BookCardProp{
     imgUrl : string,
 }
-import styles from '../styles/book-selection.module.css'
+import styles from '../styles/results.module.css'
 export default function BookCard({imgUrl} : BookCardProp){
     const {push} = useRouter();
     function openBookDetails(){

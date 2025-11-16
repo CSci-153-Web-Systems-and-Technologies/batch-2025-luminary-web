@@ -1,10 +1,15 @@
+"use client";
 import BookContainer from "./components/BookContainer"
+import styles from './styles/book-info-page.module.css'
+import { useRouter } from "next/navigation"
 export default function BookInfoPage(){
+    const {back} = useRouter();
     return(
         <>
-            <div id="bookinfopage"> 
-                <header>
-                    <button id="close-button">
+            <div className={styles["bookinfopage"]}> 
+                <header className={styles["bookinfo-header"]}>
+                    <button className={styles["close-button"]}
+                            onClick={()=>{back();}}>
                         <img src="cross.svg" alt="close-button" />
                     </button>
                     
@@ -12,7 +17,7 @@ export default function BookInfoPage(){
                         LUMINARY
                     </h1>
 
-                    <div id="empty-placeholder">
+                    <div className={styles["empty-placeholder"]}>
 
                     </div>
                 </header>

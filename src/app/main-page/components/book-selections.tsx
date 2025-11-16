@@ -1,4 +1,5 @@
 import BookCard from "./book-card"
+import styles from "../styles/book-selection.module.css"
 interface BookSelectionType{
     bookGenre : string,
 }
@@ -6,14 +7,14 @@ export default function BookSelection( {bookGenre} : BookSelectionType )
 {
     return(
         <>
-            <div id="book-selection">
-                <div id="book-genre">
+            <div className={styles["book-selection"]}>
+                <div className={styles["book-genre"]}>
                     <span>
                         {bookGenre}
                     </span>
                 </div>
-                <div id="books">
-                    <ul id="book-list">
+                <div className={styles["books"]}>
+                    <ul className={styles["book-list"]}>
                         <li >
                             <BookCard imgUrl="mock-data/percyjackson.jpg"></BookCard>
                         </li>
@@ -29,7 +30,6 @@ export default function BookSelection( {bookGenre} : BookSelectionType )
                         <li >
                             <BookCard imgUrl="mock-data/percyjackson.jpg"></BookCard>
                         </li>
-                        
                     </ul>
                 </div>
             </div>
