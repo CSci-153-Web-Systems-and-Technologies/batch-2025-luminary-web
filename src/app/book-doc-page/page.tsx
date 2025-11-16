@@ -34,7 +34,7 @@ export default function Reader(){
     return(
             <>
                
-
+                {/* <CollectionModal></CollectionModal> */}
                 <header className={headerStyles['bookdoc-header']}>
                     <div className={headerStyles["left-hand-side"]}>
                         <button onClick={()=>{router.back();}}>
@@ -122,7 +122,6 @@ export default function Reader(){
                     </nav>
                    
                 </footer>
-                 <CollectionModal></CollectionModal>
             </>
         )
 }

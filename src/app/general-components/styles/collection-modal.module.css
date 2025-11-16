@@ -34,6 +34,7 @@
     background-color: transparent;
     border : none;
     z-index : 100;
+    border-radius : 100px;
 }
 
 .modal-container img{
@@ -42,8 +43,50 @@
 }
 .modal-container main{
     height : 80%;
+    overflow: auto;
 }
 .modal-container button:hover{
     cursor : pointer;
-    background-color: blue;
+    background-color: rgb(123, 123, 123, 0.5);
+}
+
+.modal-container ul{
+    display : flex;
+    list-style-type : none;
+    padding : 0px;
+    flex-direction : column;
+    height : auto;
+    width  : 100%;
+    align-items: center;
+    gap : 20px;
+}
+
+.modal-container li{
+    width : max(30vw, 300px);
+    height : auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    background-color: #1D232A;
+    border-radius: 10px;
+    box-shadow: 0px 4px 5px 0px;
+}
+
+.modal-container ul button{
+    width : min(10vw, 75px);
+    height : min(10vw, 75px);
+    background-color: transparent;
+    border: none;
+    border-radius : 100%;
+}
+.modal-container ul button:hover{
+    background-color: transparent;
+}
+
+.modal-container li p{
+    width : 70%;
+    /* background-color: aliceblue; */
+    font-size : 1.25rem;
+    color : white;
+    font-family : Italiana;
 }

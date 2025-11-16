@@ -15,9 +15,16 @@ export default function CollectionModal(){
                     </button>
                 </header>
                 <main>
-                    
-                
-                <input type="text" />
+                    <ul>
+                        <li className={styles['collections list']}>
+                            <p>
+                                Childhood Books
+                            </p>
+                            <button>
+                                <img src="add-to-collection-button.svg" alt="add-to" />
+                            </button>
+                        </li>
+                    </ul>
                 </main>
             </div>
         </>
