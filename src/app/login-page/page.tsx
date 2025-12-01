@@ -22,8 +22,8 @@ export default function LoginPage(){
                 </div>
                 <div id="login-component">
                     <h2>Sign In</h2>
-                    <input type="text" placeholder="Username" />
-                    <input type="text" placeholder="Password" />
+                    <input type="text" name="email" placeholder="E-Mail address" />
+                    <input type="text" name="password" placeholder="Password" />
                     <button className="forgot-password">Forgot Password?</button>
                     <button className="sign-in"
                     onClick={()=>{
