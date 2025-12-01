@@ -1,0 +1,235 @@
+.bookoftheday{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top : 20px;
+}
+.botd-header{
+    color : white;
+    justify-content: start;
+    display : flex;
+    font-family : 'Italiana';
+    width : 75vw;
+}
+.botd-header h1{
+    margin : 0;
+    font-weight : 100;
+    font-size : min(max(4vw, 30px), 50px);
+    padding : 0;
+}
+
+.book-card{
+    box-sizing : border-box;
+    display : flex;
+    height : 27vw;
+    width : 80vw;
+    background-color: transparent;
+    border-radius : 40;
+    /* background-color: black; */
+    overflow : hidden;
+    padding : 0px;
+    margin : 0px;
+}
+
+.img-container{
+    height : 100%;
+    width : 30%;
+    background-color: aqua;
+    mask-image: linear-gradient(to right, rgba(0, 0, 0, 1.0) 50%, transparent 100%);
+    overflow : hidden;
+
+}
+
+.img-container img{
+    height : auto;
+    width : 100%;
+}
+
+.book-details{
+    color : white;
+    box-sizing : border-box;
+    padding : 10px;
+    margin : 0;
+    display : flex;
+    flex-direction : column;
+    gap : 0px;
+    width :70%;
+    
+}
+.book-details h1{
+    margin : 0px;
+    padding : 0px;
+    font-size : min(max( 3.25vw, 1.64em), 4em);
+    font-family : 'Italiana';
+}
+
+.author-genre{
+    display : flex;
+    gap : 10px;
+    padding : 0px;
+    margin : 0px;
+}
+.author-genre p{
+    padding:0px;
+    margin : 0px;
+    margin-top : 4px;
+    font-family : 'Italiana';
+    font-size : min(max(3vw, 1.6em), 4em);
+}
+
+.book-options {
+    display : flex;
+    flex-direction : row;
+    gap : 2vw;
+    margin-top : 05px;
+    /* background-color: blue; */
+}
+
+.favorite{
+    width : 5vw;
+    height : 5vw;
+    background-color : transparent;
+    border: none;
+}
+.book-options button img{
+    height : 100%;
+    width : 100%;
+}
+.book-options button:hover{
+    cursor : pointer;
+}
+.add-to-collection{
+    width : 5vw;
+    height : 5vw;
+    background-color: transparent;
+    border: none;
+}
+
+.read-now{
+    font-family : Roboto;
+    font-weight : bolder;
+    border-radius : 10px;
+    box-sizing : border-box;
+    padding : 0 20 0 20;
+    border : transparent;
+    width : auto;
+    height : 5vw;
+    display :flex;
+    align-items: center;
+    justify-content: space-evenly;
+    gap : 2px;
+}
+
+.read-now:hover{
+    background-color: rgb(89, 85, 100);;
+}
+
+.read-now-text{
+    flex-basis : 75%;
+    height : 100%;
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    font-size : min(max(1.5vw, 1.20em), 2rem);
+}
+.chevron-container{
+    padding : 0px;
+    margin : 0px;
+    height : 100%;
+    flex-basis : 25%;
+}
+
+.book-summary{
+    font-family : Italiana;
+    font-weight : bold;
+    padding : 0;
+    margin-top : 0;
+    /* background-color: black; */
+
+}
+.book-summary p{
+    padding : 0;
+    margin-top : 2;
+    font-size : min(max(1.75vw, 0.5rem), 3rem);
+}
+
+
+@media screen and (max-width : 600px){
+    .botd-header{
+        justify-content: center;
+    }
+
+    .book-card{
+        flex-direction : column;
+        min-height : 80vw;
+        height : 95vw;
+        width : 65vw;
+        /* background-color: blue; */
+        align-items: center;
+    }
+
+    .book-summary{
+        display : none;
+    }
+    
+    .img-container{
+        mask-image : none;
+        width : 100%;
+        height : 60%;
+        display : flex;
+        justify-content: center;
+        align-items:center;
+        mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1.0) 50%, transparent 100%);
+    }
+
+    .img-container img{
+        width : 100%;
+        position:relative;
+        top : 50px;
+        object-fit: cover;
+        display : block;
+    }
+    .book-details{
+        justify-content: center;
+        align-items : center;
+        padding : 0px;
+        margin : 0px;
+        width : 100%;
+        /* background-color: black; */
+    }
+    .author-genre{
+        width : 100%;
+        text-align: center;
+        display : flex;
+        justify-content: center;
+    }
+    .book-info{
+        justify-content: center;
+        align-items: center;
+        display : flex;
+        flex-direction: column;
+    }
+    .book-details h1, .book-details p{
+        margin : 0px;
+        text-align: center;
+    }
+    .book-options{
+        width : 100%;
+        /* background-color: blue; */
+        justify-content: center;
+    }
+    .favorite{
+        width : 10vw;
+        height : 10vw;
+    }
+
+    .add-to-collection{
+        width : 10vw;
+        height : 10vw;
+    }
+
+    .read-now{
+        height : 10vw;
+    }
+}
+

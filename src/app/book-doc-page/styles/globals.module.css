@@ -1,0 +1,94 @@
+
+.bookdoc-main{
+    width : 100vw;
+    height : 70vh;
+    background-color: white;
+    overflow:auto;
+}
+
+.bookdoc-footer{
+    width : 100vw;
+    height : 15vh;
+    /* background-color: navy; */
+}
+
+.viewport-container{
+    height : 100%;
+    width : 100%;
+    overflow : auto;
+}
+
+
+.bookdoc-nav{
+    height : 100%;
+    width : 100%;
+    display : flex;
+    justify-content: space-around;
+    /* background-color: blue; */
+    align-items: center;
+    padding : 0px;
+    margin:0px;
+}
+
+.bookdoc-nav button{
+    min-height : 75px;
+    min-width : 75px;
+    width : 10vw;
+    height : 10vw;
+    max-width : 125px;
+    max-height : 125px;
+    border : none;
+    background : transparent;
+}
+
+
+
+.bookdoc-img{
+    height : 50%;
+    width : 50%;
+}
+.bookdoc-input{
+    width : 100%;
+    color : grey;
+    accent-color: #9397AA;
+}
+
+.page-info{
+    /* background-color: aqua; */
+    height : 100%;
+    display : flex;
+    align-items: center;
+    flex-basis : 40vw;
+    justify-content: end;
+    flex-direction: column;
+}
+
+.page-info p{
+    /* background-color: blue; */
+    padding : 2vh;
+    display : flex;
+    gap : 3px;
+    height : 2vw;
+    align-items: center;
+    font-family: Roboto;
+}
+.page-info p input{
+    width : 35px;
+    background-color: transparent;
+    border : none;
+    color : black;
+    padding : 0px;
+    margin : 0px;
+    font-size : 100%;
+    font-family : Roboto;
+    font-weight : bold;
+    color : #9397AA;
+}
+.space-filler{
+    min-height : 75px;
+    min-width : 75px;
+    width : 10vw;
+    height : 10vw;
+    max-width : 125px;
+    max-height : 125px;
+}
