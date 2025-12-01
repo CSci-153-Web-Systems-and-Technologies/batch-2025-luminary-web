@@ -16,10 +16,10 @@ export default function MainPage(){
                     </button>
                     LUMINARY
                     <button className='profile-button'>
-                        <img src="./profileButton.svg" alt="" />
+                        <img src="./profileButton.svg" alt="profile-button"/>
                     </button>
-                   
             </header>
+            
             <main className={styles.mainbody}>
                 <BookOfTheDay></BookOfTheDay>
                 <BookSelection bookGenre='Continue Reading'></BookSelection>
