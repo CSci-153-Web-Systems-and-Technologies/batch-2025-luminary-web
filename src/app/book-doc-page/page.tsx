@@ -16,9 +16,9 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 
 //IMPORT MODALS:
-
 import CollectionModal from '../general-components/collection-modal';
-
+import AddNoteModal from '../general-components/note-modal';
+import Options from '../general-components/options';
 export default function Reader(){
     const router = useRouter();
 
@@ -35,6 +35,8 @@ export default function Reader(){
             <>
                
                 {/* <CollectionModal></CollectionModal> */}
+                {/* <AddNoteModal></AddNoteModal> */}
+                {/* <Options></Options> */}
                 <header className={headerStyles['bookdoc-header']}>
                     <div className={headerStyles["left-hand-side"]}>
                         <button onClick={()=>{router.back();}}>
