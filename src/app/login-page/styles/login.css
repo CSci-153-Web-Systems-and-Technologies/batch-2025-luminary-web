@@ -45,12 +45,16 @@
     color : #a9a9a9;
     letter-spacing: 5px;
 }
+form{
+    height : 100%;
+    width : 50%;
+}
 #login-component{
     display : flex;
     flex-direction : column;
     box-sizing: border-box;
     height : 100%;
-    width : 50%;      
+    width : 100%;      
     max-width : 600px;
     background: linear-gradient(to bottom, #0E1115 60%, #1E2835 100%);
     border-radius: 20px;
