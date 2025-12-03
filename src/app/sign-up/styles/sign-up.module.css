@@ -1,0 +1,80 @@
+.signup-header{
+    display : flex;
+    justify-content: center;
+    height : 10vh;
+    padding : 20px 20px 20px 20px;
+    color : white; 
+    font-family : 'Italiana';
+    font-size : min(max(7vw, 20px), 100px);
+    align-items : center;
+    box-sizing : border-box;
+    border-bottom : 2px solid rgb(88, 86, 96);
+}
+
+.signup-component{
+    box-sizing : border-box;
+    background: linear-gradient(to bottom, #0E1115 60%, #1E2835 100%);
+    color : white;
+    width : max(min(50vw, 500px), 400px);
+    height : max(min(70vw, 700px),560px);
+    position : fixed;
+    top : 50vh;
+    left : 50vw;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
+    overflow : hidden;
+    box-shadow : 0px 20px 40 0 #000000;
+    padding : 30px;
+}
+.signup-component header{
+    height : 10%;
+    color : white;
+    font-family : Roboto;
+    font-weight : 700;
+    font-size : 40px;
+}
+.signup-component form{
+    box-sizing: border-box;
+    padding-top : 20px;
+    height : 90%;
+    width : 100%;
+    /* background-color: white; */
+}
+
+.signup-component input{
+    font-family : 'Italiana';
+    background-color: transparent;
+    border: 2px solid transparent;
+    border-bottom : 2px solid white;
+    font-size : min(max(3vw, 20px), 35px);
+    padding-bottom : 4px;
+    color : white;
+}
+
+.input-bars{
+    display : flex;
+    flex-direction: column;
+    gap : 30px;
+}
+
+.sign-up{
+    padding : 15px;
+    border-radius : 10px;
+    font-size :  var(--font-size);
+    font-weight : 700;
+    border : none;
+    width : 75%;
+}
+
+.button-container{
+    margin-top : 10%;
+    width : 100%;
+    display : flex;
+    justify-content: center;
+}
+
+.sign-up:hover{
+    background-color : rgb(89, 85, 100);
+    border : none;
+    outline : none;
+}
