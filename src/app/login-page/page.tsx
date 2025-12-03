@@ -23,7 +23,7 @@ export default function LoginPage(){
                 <form action="">
                     <div id="login-component">
                         <h2>Sign In</h2>
-                        <input type="text" name="email" placeholder="E-Mail address" required/>
+                        <input id="email" type="email" name="email" placeholder="E-Mail address" required/>
                         <input id="password" type="password" name="password" placeholder="Password" required/>
                         <button className="forgot-password">Forgot Password?</button>
                         <button type="submit" className="sign-in"
