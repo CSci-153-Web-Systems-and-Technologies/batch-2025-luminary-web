@@ -6,7 +6,10 @@ import styles from './styles/mainpage.module.css';
 import { useState } from 'react';
 import BookOfTheDay from './components/book-of-the-day';
 import BookSelection from './components/book-selections';
+import { createClient } from '../../../utils/supabase/server';
+
 export default function MainPage(){
+
     const [showNavBar, setShowNavBar] = useState(false);
     return(
         <>  
