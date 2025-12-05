@@ -1,7 +1,7 @@
 'use client';
 import globalStyles from './styles/globals.module.css';
 import headerStyles from './styles/header.module.css';
-import { Document, Page, pdfjs } from "react-pdf";
+
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import { useState, useEffect } from "react";
@@ -9,10 +9,6 @@ import dynamic from "next/dynamic";
 import PDFViewer from "./components/PDFViewer";
 import { useRouter } from 'next/navigation';
 
-pdfjs.GlobalWorkerOptions.workerSrc = new URL(
-  "pdfjs-dist/build/pdf.worker.min.mjs",
-  import.meta.url,
-).toString();
 
 //IMPORT MODALS:
 import CollectionModal from '../general-components/collection-modal';
