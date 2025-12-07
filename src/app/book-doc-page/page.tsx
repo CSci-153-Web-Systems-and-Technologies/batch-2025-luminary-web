@@ -19,7 +19,7 @@ export default function Reader(){
 
     const [numPages, setNumPages] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState(1);
-
+    const [bookURL, setBookURL] = useState("https://ktsisttsnvjqrszogvwk.supabase.co/storage/v1/object/sign/Books/WeHunttheFlame.pdf?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV81ODAwZDBjOC01MTVlLTQzYmUtYmZlNS0zOWRiODYyZGIyOTUiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJCb29rcy9XZUh1bnR0aGVGbGFtZS5wZGYiLCJpYXQiOjE3NjUwNzE1NTMsImV4cCI6MTc2NTY3NjM1M30.TdTCx0Xhp5wIHz6MOqX5xg_20ukayXJCdKXBiY28GrQ")
     const goToPrevPage = () =>
         setPageNumber(pageNumber - 1 <= 1 ? 1 : pageNumber - 1);
 
@@ -71,10 +71,10 @@ export default function Reader(){
                 </header>
                 <main className={globalStyles['bookdoc-main']}>
                         <PDFViewer 
+                        book_url={bookURL}
                         pageNumber={pageNumber} 
                         numPages={numPages}
                         setNumPages={setNumPages}
-                        setPageNumber={setPageNumber}  
                         />
                 </main>
                 <footer className={globalStyles['bookdoc-footer']}>

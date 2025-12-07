@@ -21,16 +21,15 @@ const PDFViewerClient = dynamic(() => import("./PDFViewerClient"), {
 
 // Dynamically import the PDF viewer client component.
 
-interface PDFViewerProps{ 
+interface PDFViewerProps{
+  book_url : string,
   pageNumber : number,
   numPages : number,
   setNumPages: (numPages : number) => void,
-  setPageNumber : (pageNumber : number) => void, 
 }
-const PDFViewer = ({pageNumber, numPages, setNumPages, setPageNumber} : PDFViewerProps) => {
-  return <PDFViewerClient pageNumber={pageNumber} numPages={numPages}
-        setNumPages={setNumPages}
-        setPageNumber={setPageNumber}  
+const PDFViewer = ({book_url, pageNumber, numPages, setNumPages} : PDFViewerProps) => {
+  return <PDFViewerClient book_url={book_url} pageNumber={pageNumber} numPages={numPages}
+        setNumPages={setNumPages}  
   />;
 };
 export default PDFViewer;
