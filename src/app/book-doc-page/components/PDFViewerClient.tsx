@@ -1,6 +1,5 @@
 "use client";
-
-import { useState } from "react";
+import { useMemo } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import dynamic from "next/dynamic";
 import "react-pdf/dist/Page/TextLayer.css";
@@ -16,20 +15,23 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 
 interface PDFViewerClientProps{ 
+  book_url : string,
   pageNumber : number,
   numPages : number,
   setNumPages: (numPages : number) => void,
-  setPageNumber : (pageNumber : number) => void, 
+  
 }
 
-const PDFViewerClient = ( {pageNumber, numPages, setNumPages, setPageNumber} : PDFViewerClientProps) => {
-  
+const PDFViewerClient = ( {book_url, pageNumber, numPages, setNumPages} : PDFViewerClientProps) => {
+
+  const file = useMemo(() => ({book_url}), [book_url])
 
   const onDocumentLoadSuccess = ({ numPages } : {numPages : number}) => {
     setNumPages(numPages);
   };
 
   
+
 
   return (
     <div className="div-container" style={{ height : "100%", width : "100%"}}>
@@ -44,8 +46,9 @@ const PDFViewerClient = ( {pageNumber, numPages, setNumPages, setPageNumber} : P
         }}
       >
         <Document
-          file="mock-data/WeHunttheFlame.pdf"
+          file={book_url}
           onLoadSuccess={onDocumentLoadSuccess}
+          onLoadError={console.error}
           loading={
             <div style={{ padding: "2rem", textAlign: "center" }}>
               Loading PDF...
