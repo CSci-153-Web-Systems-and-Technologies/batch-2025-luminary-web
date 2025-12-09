@@ -3,11 +3,13 @@ import {useState, useEffect} from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '../styles/book-container.module.css'
 interface BookContainerProps{
+    bookID : string,
     imgUrl : string,
     bookTitle : string,
     author : string,
     genre : string,
     bookSummary : string,
+    pdfUrl : string
 }
 
 const chapterListEnabledStyle =
@@ -16,22 +18,31 @@ const chapterListEnabledStyle =
 }
 
 interface ReadChapterProps{
+    bookID : string,
     isChapterMode : boolean,
     setChapterMode : (x : boolean) => void,
+    bookTitle : string,
+    author : string
+    pdfUrl : string,
+
 }
-function ReadChapter({isChapterMode, setChapterMode} : ReadChapterProps){
+function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, pdfUrl} : ReadChapterProps){
     const {push} = useRouter();
-    function openBook(){
-        push('../../book-doc-page');
+
+    function openBook(bookTitle : string, author : string, pdfUrl : string){
+        console.log(bookTitle);
+        console.log(author);
+        console.log(pdfUrl);
+        push(`../../book-doc-page?booktitle=${bookTitle}&author=${author}&pdfurl=${pdfUrl}&bookid=${bookID}`);
     }
     
     return(
         <div className={styles["read-chapter"]}>
             <button className={styles["read-now"]}
-            onClick={openBook}
+            onClick={()=>{ openBook(bookTitle, author, pdfUrl)}}
             >
                 <div className={styles["chevron-container"]}>
-                    <img className={styles["chevron"]} src="chevron-right.svg" alt="" />
+                    <img className={styles["chevron"]} src="/chevron-right.svg" alt="" />
                 </div>
                 <div className={styles["read-now-text"]}>
                     Read Now
@@ -45,6 +56,7 @@ function ReadChapter({isChapterMode, setChapterMode} : ReadChapterProps){
     )
 }
 interface BookInfoProps{
+    bookID : string,
     bookTitle : string,
     author : string,
     genre : string,
@@ -52,8 +64,9 @@ interface BookInfoProps{
     isMobile : boolean,
     isChapterMode : boolean,
     setChapterMode :  (x : boolean) => void,
+    pdfUrl : string
 }
-function BookInfo({bookTitle, author, genre, bookSummary, isMobile, isChapterMode, setChapterMode} : BookInfoProps){
+function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isChapterMode, setChapterMode, pdfUrl} : BookInfoProps){
     return (
         <div className={styles["book-information"]}>
             <div className={styles["book-info"]}>
@@ -66,14 +79,16 @@ function BookInfo({bookTitle, author, genre, bookSummary, isMobile, isChapterMod
             </div>
             <div className={styles["book-options"]}>
                 <button className={styles["favorite"]}>
-                    <img src="star.svg" alt="" />
+                    <img src="/star.svg" alt="" />
                 </button>
                 <button className={styles["add-to-collection"]}>
-                    <img src="add-collection.svg" alt="" />
+                    <img src="/add-collection.svg" alt="" />
                 </button>
             </div>
             {isMobile && 
-                <ReadChapter isChapterMode={isChapterMode} setChapterMode={setChapterMode}></ReadChapter>
+                <ReadChapter bookID={bookID} isChapterMode={isChapterMode} setChapterMode={setChapterMode} bookTitle={bookTitle}
+                            author={author}
+                            pdfUrl={pdfUrl}></ReadChapter>
             }
             {
             !isChapterMode ?  
@@ -88,6 +103,7 @@ function BookInfo({bookTitle, author, genre, bookSummary, isMobile, isChapterMod
         </div>
     )
 }
+
 interface ChapterListProps{
     isMobile : boolean,
 }
@@ -103,32 +119,32 @@ function ChapterList({isMobile} : ChapterListProps){
                 <li>
                     <p>Chapter 1: The Worst Birthday</p>
                     <button>
-                        <img src="arrow-right.svg" alt="" />
+                        <img src="/arrow-right.svg" alt="" />
                     </button>
                 </li>
                 <li>
                     <p>Chapter 2: Dobby{`'`}s Warning</p>
                     <button>
-                        <img src="arrow-right.svg" alt="" />
+                        <img src="/arrow-right.svg" alt="" />
                     </button>
                 </li>
                 <li>
                     <p>Chapter 3: The Burrow</p>
                     <button>
-                        <img src="arrow-right.svg" alt="" />
+                        <img src="/arrow-right.svg" alt="" />
                     </button>
                 </li>
                 <li>
                     <p>Chapter 4: At Flourish and Blotts</p>
                     <button>
-                        <img src="arrow-right.svg" alt="" />
+                        <img src="/arrow-right.svg" alt="" />
                     </button>
                 </li>
             </ul>
         </div>
     )
 }
-export default function BookContainer( {imgUrl, bookTitle, author, genre, bookSummary} : BookContainerProps){
+export default function BookContainer( {bookID, imgUrl, bookTitle, author, genre, bookSummary, pdfUrl} : BookContainerProps){
     const isSSR = typeof window === "undefined";
     const [isChapterMode, setChapterMode] = useState(false);
     const [width, setWidth] = useState(0);
@@ -156,13 +172,20 @@ export default function BookContainer( {imgUrl, bookTitle, author, genre, bookSu
                             <img src={imgUrl} alt="book-img" />
                         </div>
                        {!isMobile && 
-                            <ReadChapter isChapterMode={isChapterMode} setChapterMode={setChapterMode}></ReadChapter>
+                            <ReadChapter 
+                            bookID={bookID}
+                            isChapterMode={isChapterMode} 
+                            setChapterMode={setChapterMode}
+                            bookTitle={bookTitle}
+                            author={author}
+                            pdfUrl={pdfUrl}
+                            ></ReadChapter>
                        }
                     </div>
                     {!isChapterMode ? 
-                    <BookInfo bookTitle={bookTitle} author={author} genre={genre} bookSummary={bookSummary} isMobile={isMobile} isChapterMode={isChapterMode} setChapterMode={setChapterMode}></BookInfo>
+                    <BookInfo bookID={bookID}pdfUrl = {pdfUrl} bookTitle={bookTitle} author={author} genre={genre} bookSummary={bookSummary} isMobile={isMobile} isChapterMode={isChapterMode} setChapterMode={setChapterMode}></BookInfo>
                     : isMobile ? 
-                    <BookInfo bookTitle={bookTitle} author={author} genre={genre} bookSummary={bookSummary} isMobile={isMobile} isChapterMode={isChapterMode} setChapterMode={setChapterMode}></BookInfo>
+                    <BookInfo bookID={bookID} pdfUrl = {pdfUrl} bookTitle={bookTitle} author={author} genre={genre} bookSummary={bookSummary} isMobile={isMobile} isChapterMode={isChapterMode} setChapterMode={setChapterMode}></BookInfo>
                     :
                     <ChapterList isMobile={isMobile}></ChapterList>
                     }

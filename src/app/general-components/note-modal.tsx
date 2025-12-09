@@ -1,11 +1,15 @@
 import styles from './styles/note-modal.module.css'
-
-export default function AddNoteModal(){
+import { ModalMode } from '../book-doc-page/page'
+interface NoteModal{
+    setMode : (modalMode : ModalMode)=>void, 
+    modalMode : ModalMode
+}
+export default function AddNoteModal({setMode, modalMode} : NoteModal){
     return(
         <>
             <div className={styles["modal-container"]}>
                 <header>
-                    <button>
+                    <button onClick={()=>{setMode(ModalMode.Off)}}>
                         <img src="cross.svg" alt="" />
                     </button>
                     <h2>

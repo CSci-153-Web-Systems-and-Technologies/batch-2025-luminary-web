@@ -89,6 +89,9 @@
     background : transparent;
 }
 
-.cover-container:hover{
-    cursor:pointer;
+.card-link{
+    height : auto;
+    width : auto;
+    background-color: blue;
+    display : flex;
 }

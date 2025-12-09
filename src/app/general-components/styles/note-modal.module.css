@@ -11,6 +11,7 @@
     overflow : hidden;
     display : flex;
     flex-direction : column;
+    box-shadow : 0px 3px 5px 4px black;
 }
 
 .modal-container header{
@@ -86,6 +87,11 @@
     outline : none;
     font-size : 1.5em;
     color : white;
+}
+
+.modal-container textarea:focus{
+    box-sizing: border-box;
+    border : 1px solid white;
 }
 
 .modal-container button img{
