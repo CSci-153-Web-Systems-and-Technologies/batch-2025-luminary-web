@@ -1,16 +1,32 @@
+"use client"
+
 import styles from './styles/collection-modal.module.css'
-export default function CollectionModal(){
+import { ModalMode } from '../book-doc-page/page'
+
+interface CollectionProps{
+    setMode : (modalMode : ModalMode)=>void, 
+    modalMode : ModalMode,
+    collectionData : any,
+}
+export default function CollectionModal({setMode, modalMode, collectionData} : CollectionProps){
     return(
         <>
             <div className={styles["modal-container"]}>
                 <header>
-                    <button>
+                    <button onClick={
+                        ()=>{
+                        setMode(ModalMode.Off)
+                        console.log("Modal off!")
+                        }}>
                         <img src="cross.svg" alt="" />
                     </button>
                     <h2>
                         Collections
                     </h2>
-                    <button>
+                    <button onClick={
+                                ()=>{
+                                    setMode(ModalMode.AddCollection)
+                                }}>
                         <img src="plus.svg" alt="" />
                     </button>
                 </header>
@@ -21,7 +37,7 @@ export default function CollectionModal(){
                                 Childhood Books
                             </p>
                             <button>
-                                <img src="add-to-collection-button.svg" alt="add-to" />
+                                <img src="add-to-collection-button.svg" alt="add-to-collection" />
                             </button>
                         </li>
                     </ul>

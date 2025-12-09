@@ -15,7 +15,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = new URL(
 
 
 interface PDFViewerClientProps{ 
-  book_url : string,
+  book_url : string | null,
   pageNumber : number,
   numPages : number,
   setNumPages: (numPages : number) => void,

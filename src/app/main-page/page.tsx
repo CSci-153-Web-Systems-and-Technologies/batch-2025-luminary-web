@@ -15,6 +15,8 @@ export default function MainPage(){
     const [userData, setUserData] = useState<any>(null);
     const supabase = createClient();
     const [isAdminPage, setIsAdminPage] = useState(false);
+    const [bookData, setBookData] = useState<any>(null);
+    
     useEffect(()=> {
         const fetchUser = async() => {
             const {
@@ -45,6 +47,21 @@ export default function MainPage(){
         
     }, [user])
 
+    useEffect(()=>{
+        const fetchBookData = async()=>{
+            const {data, error} = await supabase.from('books').select("*");
+            if(error){
+                console.error("Error fetching books!");
+            }
+            else{
+                console.log(data);
+            }
+            setBookData(!error ? data : null);
+        }
+        
+        fetchBookData();
+    }, [])
+
     return(
         <>  
             <header className={styles.mainheader}>
@@ -66,11 +83,11 @@ export default function MainPage(){
             </header>
             
             <main className={styles.mainbody}>
-                {user !== null ? <p>hello {user.user_metadata.full_name} </p>: <p>You are not logged in.</p>}
+                {/* {user !== null ? <p>hello {user.user_metadata.full_name} </p>: <p>You are not logged in.</p>} */}
                 <BookOfTheDay></BookOfTheDay>
-                <BookSelection bookGenre='Continue Reading'></BookSelection>
-                <BookSelection bookGenre='Fantasy'></BookSelection>
-                <BookSelection bookGenre='Romance'></BookSelection>
+                <BookSelection bookGenre='Continue Reading' bookData={null}></BookSelection>
+                <BookSelection bookGenre='Fantasy' bookData={bookData}></BookSelection>
+                <BookSelection bookGenre='Romance' bookData={bookData}></BookSelection>
             </main>
         </>
     )

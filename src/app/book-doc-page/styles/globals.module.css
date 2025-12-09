@@ -51,7 +51,13 @@
     width : 100%;
     color : grey;
     accent-color: #9397AA;
+     -webkit-appearance: none; /* Remove default browser styles for Webkit browsers */
+    appearance: none; /* Remove default browser styles */
+    
+    outline: none; /* Remove focus outline */
+    border-radius: 5px; /* Rounded corners for the track */
 }
+
 
 .page-info{
     /* background-color: aqua; */
@@ -92,3 +98,4 @@
     max-width : 125px;
     max-height : 125px;
 }
+

@@ -68,7 +68,6 @@ button:hover{
     cursor : pointer;
 }
 .read-now{
-    font-family : Roboto;
     font-weight : bolder;
     border-radius : 10px;
     box-sizing : border-box;
@@ -110,7 +109,6 @@ button:hover{
 .chapterlist{
     background : transparent;
     border : none;
-    font-family : Roboto;
     font-weight : bolder;
     font-size : min(max(1.5vw, 1.20em), 2rem);
     color : white;
