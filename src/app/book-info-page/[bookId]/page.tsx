@@ -34,11 +34,7 @@ export default function BookInfoPage({params} : {params : Promise<{bookId : stri
     }, [])
 
 
-    const fetchFavorite = async()=>{
-        const {data, error} = await supabase.from('favorites').select('*').eq('book_id', bookID).eq('user_id', user.user_metadata.sub);
-
-        setFavorite((data && data.length > 0 ? true : false));
-    }
+    
     useEffect(()=>{
         if(bookID){
             const fetchBookData = async()=>{
@@ -61,40 +57,7 @@ export default function BookInfoPage({params} : {params : Promise<{bookId : stri
     }, [bookID])
 
 
-    function favoriteAction(){
-        if(favorite){
-            deleteFromFavorites();
-        }
-        else{
-            addToFavorites();
-        }
-    }
-
-    async function addToFavorites(){
-        const {error} = await supabase.from('favorites').insert([
-            {
-                'book_id' : bookID,
-                'user_id' : user.user_metadata.sub,
-            }
-        ])    
-        if(error){
-            alert("Error adding to favorites!")
-        }
-        else{
-            alert("Added to favorites!");
-        }
-    }
-
-    async function deleteFromFavorites(){
-        const {error} = await supabase.from('favorites').delete().eq("book_id", bookID).eq("user_id", user.user_metadata.sub);
-        if(error){
-            alert("Error deleting from favorites!");
-        }
-        else{
-            alert("Deleted from favorites!");
-            fetchFavorite();
-        }
-    }
+    
     return(
         <>
             <div className={styles["bookinfopage"]}> 
@@ -122,7 +85,9 @@ export default function BookInfoPage({params} : {params : Promise<{bookId : stri
                 bookID={bookID}
                 ></BookContainer>
                
+                <div className={styles["review-section"]}>
 
+                </div>
             </div>
         </>
     )

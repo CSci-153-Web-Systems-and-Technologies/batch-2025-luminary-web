@@ -10,7 +10,8 @@ interface BookData{
     pdf_url : string,
 }
 
-interface BookSelectionType{
+export interface BookSelectionType{
+    bookCollection : string,
     bookGenre : string,
     bookData : BookData[] | null,
 }
@@ -55,14 +56,13 @@ function ActualList({bookGenre, bookData} : BookSelectionType ){
         </>
     )
 }
-export default function BookSelection( {bookGenre, bookData} : BookSelectionType )
+export default function BookSelection( {bookCollection = "", bookGenre, bookData} : BookSelectionType )
 {
 
     if(bookData !== null){
         const book = bookData[0];
-        console.log(book.image_url);
+        // console.log(book.image_url);
     }
-    
     return(
         <>
             <div className={styles["book-selection"]}>
@@ -73,10 +73,12 @@ export default function BookSelection( {bookGenre, bookData} : BookSelectionType
                 </div>
                 <div className={styles["books"]}>
                     <ul className={styles["book-list"]}>
-                        {bookData === null ? <MockList></MockList> : <ActualList bookGenre ={bookGenre} bookData={bookData}></ActualList>}
+                        {bookData === null ? <MockList></MockList> : <ActualList bookCollection={""} bookGenre ={bookGenre} bookData={bookData}></ActualList>}
                     </ul>
                 </div>
             </div>
         </>
     )
 }
+
+
