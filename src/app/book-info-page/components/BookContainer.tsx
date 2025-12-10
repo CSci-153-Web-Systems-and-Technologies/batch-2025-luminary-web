@@ -2,6 +2,7 @@
 import {useState, useEffect} from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '../styles/book-container.module.css'
+import { createClient } from '../../../../utils/supabase/client';
 interface BookContainerProps{
     bookID : string,
     imgUrl : string,
@@ -67,6 +68,70 @@ interface BookInfoProps{
     pdfUrl : string
 }
 function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isChapterMode, setChapterMode, pdfUrl} : BookInfoProps){
+    const supabase = createClient();
+    const [favorite, setFavorite] = useState(false);
+    const[user, setUser] = useState<any>(null);
+
+    useEffect(()=>{
+        if(bookID && supabase){
+            const getUser = async()=>{
+                const {data : {user}} = await supabase.auth.getUser();
+                setUser(user);
+
+                const {data, error} = await supabase.from('favorites').select('*').eq('book_id', bookID).eq('user_id', user.user_metadata.sub);
+                setFavorite((data && data.length > 0 ? true : false));
+            }   
+            getUser();
+        }
+    }, [bookID])
+
+
+
+    const fetchFavorite = async()=>{
+        const {data, error} = await supabase.from('favorites').select('*').eq('book_id', bookID).eq('user_id', user.user_metadata.sub);
+
+        setFavorite((data && data.length > 0 ? true : false));
+    }
+
+    function favoriteAction(){
+        if(favorite){
+            deleteFromFavorites();
+        }
+        else{
+            addToFavorites();
+        }
+    }
+
+    async function addToFavorites(){
+        const {error} = await supabase.from('favorites').insert([
+            {
+                'book_id' : bookID,
+                'user_id' : user.user_metadata.sub,
+            }
+        ])    
+        if(error){
+            alert("Error adding to favorites!")
+        }
+        else{
+            alert("Added to favorites!");
+            fetchFavorite();
+        }
+    }
+
+    async function deleteFromFavorites(){
+        const {error} = await supabase.from('favorites').delete().eq("book_id", bookID).eq("user_id", user.user_metadata.sub);
+        if(error){
+            alert("Error deleting from favorites!");
+        }
+        else{
+            alert("Deleted from favorites!");
+            fetchFavorite();
+        }
+    }
+    
+    
+    
+    
     return (
         <div className={styles["book-information"]}>
             <div className={styles["book-info"]}>
@@ -78,8 +143,9 @@ function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isCh
                 </div>
             </div>
             <div className={styles["book-options"]}>
-                <button className={styles["favorite"]}>
-                    <img src="/star.svg" alt="" />
+                <button className={styles["favorite"]}
+                onClick={favoriteAction}>
+                    <img src={favorite ? "/favored-star.svg" : "/star.svg"} alt="" />
                 </button>
                 <button className={styles["add-to-collection"]}>
                     <img src="/add-collection.svg" alt="" />
