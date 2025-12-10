@@ -8,6 +8,7 @@ import BookOfTheDay from './components/book-of-the-day';
 import BookSelection from './components/book-selections';
 import { createClient } from '../../../utils/supabase/client';
 import { useRouter } from 'next/navigation';
+import Sidebar from './components/sidebar'
 export default function MainPage(){
     const {push} = useRouter();
     // const [showNavBar, setShowNavBar] = useState(false);
@@ -16,7 +17,7 @@ export default function MainPage(){
     const supabase = createClient();
     const [isAdminPage, setIsAdminPage] = useState(false);
     const [bookData, setBookData] = useState<any>(null);
-    
+    const [sidebarEnabled, setSidebarEnabled] = useState(false);
     useEffect(()=> {
         const fetchUser = async() => {
             const {
@@ -64,8 +65,10 @@ export default function MainPage(){
 
     return(
         <>  
+            {sidebarEnabled ? <Sidebar></Sidebar> : null}
             <header className={styles.mainheader}>
-                    <button>
+                    <button onClick={()=>{setSidebarEnabled(true)}}
+                        style={sidebarEnabled? {visibility : "hidden",} : {}}>
                          <img src="./hamburgerButton.svg" alt="hamburger-button"/>
                     </button>
                     LUMINARY
@@ -78,7 +81,7 @@ export default function MainPage(){
 
                         }
                     }>
-                        <img src={isAdminPage ? "./plus.svg" : "./profileButton.svg"} alt="profile-button"/>
+                        <img src={isAdminPage ? "./plus.svg" : "./profile.svg"} alt="profile-button"/>
                     </button>
             </header>
             

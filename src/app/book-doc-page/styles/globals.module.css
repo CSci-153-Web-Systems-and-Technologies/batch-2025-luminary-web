@@ -39,6 +39,7 @@
     max-height : 125px;
     border : none;
     background : transparent;
+    border-radius : 100px;
 }
 
 
@@ -46,6 +47,10 @@
 .bookdoc-img{
     height : 50%;
     width : 50%;
+}
+
+.bookdoc-nav button:hover{
+    background-color: rgb(123, 123, 123, 0.5);
 }
 .bookdoc-input{
     width : 100%;
