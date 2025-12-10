@@ -29,23 +29,60 @@ interface ModalProps{
     modalMode : ModalMode, 
     setModalMode : (modalMode : ModalMode)=>void,
     setPageNumber : (page : number)=>void,
+    page : number,
     collectionData : any,
     notesData : any,
     bookmarks : any,
     userID : string,
     bookID : string | null,
+    fetchCollectionDatas : ()=>void,
+    fetchNotesData : ()=>void,
+    collectionEBooksData : any,
 }
-function Modal({modalMode, setModalMode, setPageNumber, collectionData, notesData, bookmarks, userID, bookID} : ModalProps){
+function Modal({modalMode, setModalMode, setPageNumber, page, collectionData, notesData, bookmarks, userID, bookID, fetchCollectionDatas, collectionEBooksData, fetchNotesData} : ModalProps){
         if(modalMode === ModalMode.Collection)
-            return <CollectionModal setMode={setModalMode} modalMode={modalMode} collectionData={collectionData}></CollectionModal>
+
+            return <CollectionModal 
+        setMode={setModalMode} 
+        modalMode={modalMode} 
+        collectionData={collectionData} 
+        collectionEBooksData={collectionEBooksData}
+        fetchDatas={fetchCollectionDatas}
+        bookID={bookID}>
+        </CollectionModal>
         else if (modalMode === ModalMode.AddNote)
-            return <AddNoteModal setMode={setModalMode} modalMode={modalMode}></AddNoteModal>
+
+            return <AddNoteModal 
+        setMode={setModalMode} 
+        modalMode={modalMode}
+        bookID={bookID}
+        userID={userID}
+        page={page}
+        fetchNotesData={fetchNotesData}
+        >
+
+        </AddNoteModal>
         else if (modalMode === ModalMode.Options)
-            return <Options setMode={setModalMode} setPageNumber={setPageNumber} bookmarks={bookmarks} notesData={notesData}></Options>
+
+            return <Options 
+        setMode={setModalMode} 
+        setPageNumber={setPageNumber} 
+        bookmarks={bookmarks} 
+        notesData={notesData}>
+        
+        </Options>
         else if(modalMode === ModalMode.AddCollection)
-            return <AddCollection setMode={setModalMode} modalMode={modalMode}></AddCollection>
+
+            return <AddCollection 
+        setMode={setModalMode} 
+        modalMode={modalMode} 
+        userID={userID} 
+        bookID={bookID}
+        fetchDatas={fetchCollectionDatas}>
+        </AddCollection>
         return null;
 }
+
 
 
 export default function Reader(){
@@ -57,7 +94,7 @@ export default function Reader(){
 
     const router = useRouter();
     const searchParams = useSearchParams();
-    console.log("Search Params : " + searchParams);
+    // console.log("Search Params : " + searchParams);
     const [numPages, setNumPages] = useState<number>(0);
     const [pageNumber, setPageNumber] = useState(1);
     const [modalMode, setModalMode] = useState(ModalMode.Off);
@@ -66,7 +103,7 @@ export default function Reader(){
     const bookURL = searchParams.get("pdfurl");
     const bookID = searchParams.get("bookid");
 
-    console.log(bookID);
+    // console.log(bookID);
     const goToPrevPage = () =>
         setPageNumber(pageNumber - 1 <= 1 ? 1 : pageNumber - 1);
 
@@ -95,37 +132,138 @@ export default function Reader(){
     const [collectionData, setCollectionData] = useState<any>(null);
     const [notesData, setNotesData] = useState<any>(null);
     const [bookmarksData, setBookmarkData] = useState<any>(null)
-    useEffect(()=>{
+    const [collectionEBooksData, setCollectionEBooksData] = useState<any>(null);
+    const [bookmarksMap, setBookmarksMap] = useState<boolean[]>([]);
+    function initBookmarksMap(data){
+        console.log("Data: ");
+        console.log(data);
+        console.log(numPages);
+        const tempMap = new Array(numPages + 1).fill(false);
+        if(data){
+            for(let i = 0; i < data.length; i++){
+                tempMap[data[i].page] = true;
+            }
+            setBookmarksMap(tempMap);
+            console.log("tempMap: ");
+            console.log(tempMap);
+        }
+    }
+
+    async function fetchCollectionData(){
         if(user){
-            const fetchCollectionData = async()=>{
-                const {data, error} = await supabase.from('collections').select("*").eq('id', user.user_metadata.sub);;
+                const {data, error} = await supabase.from('collections').select("*").eq('user_id', user.user_metadata.sub);
                 if(error){
                     console.error("Error fetching collection!");
                 }
                 else{
-                    console.log("Data: " + data);
+                    // console.log("Collection Data: " + data);
                 }
-                setCollectionData(!error ? data : null);
-            }
-            
-            const fetchNoteData = async()=>{
-                const {data, error} = await supabase.from('collections').select("*").eq('id', user.user_metadata.sub);;
+                setCollectionData(!error ? data : null);     
+        }
+    }
+    async function fetchCollectionEBooksData(){
+        if(user){
+            const {data, error} = await supabase.from('collectionebook').select("*").eq('bookid', bookID).eq("user_id", user.user_metadata.sub);
+                if(error){
+                    console.error("Error fetching collectionebooks!");
+                }
+                else{
+                    // console.log("Collection ebooks Data: " + data);
+                }
+                setCollectionEBooksData(!error ? data : null);
+        }
+    }
+    async function fetchNoteData(){
+        if(user){
+            const {data, error} = await supabase.from('notes').select("*").eq('userid', user.user_metadata.sub);
                 if(error){
                     console.error("Error fetching notes!");
                 }
                 else{
-                    console.log("Data: " + data);
+                    // console.log("Data: " + data);
                 }
-                setCollectionData(!error ? data : null);
-            }
-
-            fetchCollectionData();
+                setNotesData(!error ? data : null);
         }
+    }
+    async function fetchBookmarksData(){
+        if(user){
+            console.log(bookID + " " + user.user_metadata.sub);
+            const {data, error} = await supabase.from('bookmarks').select("*").eq('userid', user.user_metadata.sub).eq('bookid', bookID);
+                if(error){
+                    console.error("Error fetching notes!");
+                }
+                else{
+                    console.log("Bookmarks Data: " + data);
+                    initBookmarksMap(data);
+                }
+                setBookmarkData(!error ? data : null);
+                
+        }
+    }
+    async function fetchDatas(){
+        if(user){
+            fetchCollectionData();
+            fetchCollectionEBooksData();
+            fetchNoteData();
+            fetchBookmarksData();
+        }
+    }
+
+    async function fetchCollectionDatas(){
+        if(user){
+            fetchCollectionData();
+            fetchCollectionEBooksData();
+        }
+    }
+    useEffect(()=>{
+        fetchDatas();
     }, [user])
 
-    function AddBookmark(){
+    useEffect(()=>{
+        fetchDatas();
+    }, [])
+
+    function bookmarkAction(){
+        console.log(bookmarksMap);
         
+        if(!bookmarksMap[pageNumber]){
+            addBookmark();
+        }else{
+            deleteBookmark();
+        }
     }
+
+
+    async function addBookmark(){
+        const {data, error} = await supabase.from('bookmarks').insert([
+            {
+                bookid : bookID,
+                userid : user.user_metadata.sub,
+                page : pageNumber,
+            }
+        ]);
+        if(error){
+            alert("Failed to add bookmark!");
+        }else{
+            alert("Bookmark added!");
+        }
+        fetchBookmarksData();
+    }
+
+    async function deleteBookmark(){
+        const {error} = await supabase.from('bookmarks').delete()
+        .eq('bookid', bookID)
+        .eq('userid', user.user_metadata.sub)
+        .eq('page', pageNumber);
+        if(error){
+            alert("Error deleting page!");
+        }
+        else{
+            alert("Bookmark deleted!");
+        }
+        fetchBookmarksData();
+    }
+
     return(
             <>
                
@@ -142,6 +280,10 @@ export default function Reader(){
                 collectionData={collectionData}
                 notesData={notesData}
                 bookmarks={bookmarksData}
+                collectionEBooksData={collectionEBooksData}
+                fetchCollectionDatas={fetchCollectionDatas}
+                fetchNotesData={fetchNoteData}
+                page={pageNumber}
                 ></Modal>
                 
                 <header className={headerStyles['bookdoc-header']}>
@@ -196,7 +338,7 @@ export default function Reader(){
                 </main>
                 <footer className={globalStyles['bookdoc-footer']}>
                     <nav className={globalStyles['bookdoc-nav']}>
-                        <button>
+                        <button onClick={bookmarkAction}>
                             <img className={globalStyles['bookdoc-img']}src="bookmark.svg" alt="bookmark" />
                         </button>
                         <button

@@ -5,9 +5,15 @@ import {ChangeEvent} from 'react'
 import { createClient } from '../../../utils/supabase/client'
 interface CollectionProps{
     setMode : (modalMode : ModalMode)=>void, 
-    modalMode : ModalMode
+    modalMode : ModalMode,
+    userID : string,
+    bookID : string | null,
+    fetchDatas : ()=>void,
 }
-export default function AddCollection({setMode, modalMode} : CollectionProps){
+
+
+export default function AddCollection({setMode, modalMode, userID, bookID, fetchDatas} : CollectionProps){
+    const supabase = createClient();
     const [collectionName, setCollectionName] = useState("");
     
     function goBack(){
@@ -17,11 +23,47 @@ export default function AddCollection({setMode, modalMode} : CollectionProps){
     function updateCollectionName(e : ChangeEvent<HTMLTextAreaElement>){
         setCollectionName(e.currentTarget.value);
     }
-    function addCollection(){
+    async function createCollection(){
         //code for adding collection.
         
-        alert("Added to collection!");
+        const {data, error} = await supabase.from("collections").insert(
+            [{
+                user_id : userID, 
+                name : collectionName,
+            }]
+        ).select();
+
+        if(error){
+            alert("Failed to create collection!");
+        }
+        else{
+            alert("Collection created!")
+            console.log(data);
+        }
+        const newRow = data ? data[0] : null;
+
+        addCollection(newRow.id);
+        
         setMode(ModalMode.Off);
+    }
+
+    async function addCollection(collection_id : string){
+        const {data, error} = await supabase.from("collectionebook").insert(
+            [{
+                collectionid : collection_id, 
+                bookid : bookID,
+                user_id : userID,
+            }]
+        ).select();
+
+        if(error){
+            alert("Failed to add to collection!");
+        }
+        else{
+            alert("Added to collection!");
+            console.log(data);
+        }
+        fetchDatas();
     }
     return(
         <>
@@ -33,7 +75,7 @@ export default function AddCollection({setMode, modalMode} : CollectionProps){
                     <h2>
                         Collections
                     </h2>
-                    <button onClick={addCollection}>
+                    <button onClick={createCollection}>
                         <img src="plus.svg" alt="" />
                     </button>
                 </header>

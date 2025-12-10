@@ -63,37 +63,50 @@ const NoteContent : [number, string][] =
                     <ul>
                         {optionMode == Mode.Bookmark ?
                         
-                        BookmarkContent.map((value, index)=> 
+                        (bookmarks && bookmarks?.length > 0 ?
+                        
+                        
+                        bookmarks.map((value, index)=> 
                             (
                                 <li key={index}>
                                     <button style={{
                                         justifyContent : 'space-between',
                                     }}
                                     onClick={()=>{
-                                        setPageNumber(value)
+                                        setPageNumber(value.page)
                                         setMode(ModalMode.Off)
                                     }}
                                     >
                                         <div>Bookmark  {` ${index + 1}: `}</div> 
                                         
                                         <div>
-                                        {value}
+                                        {value.page}
                                         </div>
                                     </button>
                                 </li>
                             )
                         )
 
+                        : 
+
+                        <div className={styles['no-bookmarks']}>You have no bookmarks</div>
+                        )
+                        
+
                         :
 
-                        NoteContent.map((value, index)=>
+                        (notesData
+                            
+                        ?
+                        
+                        notesData.map((value, index)=>
                             (
                                 <li key={index}>
                                     <button style={{
                                         flexDirection : "column",
                                     }}
                                     onClick={()=>{
-                                        setPageNumber(value[0])
+                                        setPageNumber(value.page)
                                         setMode(ModalMode.Off)
                                     }}
                                     >
@@ -101,16 +114,21 @@ const NoteContent : [number, string][] =
                                             borderBottom : "2px solid #313B4B",
                                             marginBottom : "10px",
                                         }}>
-                                        {value[0]}
+                                        {value.page}
                                         </div>
                                         <div>
-                                        {value[1]}
+                                        {value.noteContent}
                                         </div>
                                     </button>
                                 </li>
                             )
                         )
+                        :
+
+                        <div className={styles['no-notes']}>You have no notes</div>
+                        )
                         }
+                        
                     </ul>
                 </main>
             </div>
