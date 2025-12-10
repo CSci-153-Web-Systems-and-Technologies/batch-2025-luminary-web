@@ -1,0 +1,13 @@
+.sidebar{
+    position : fixed;
+    background: linear-gradient(to bottom, #050607, #131f2a);
+    height : 100vh; 
+    width : 400px;
+    z-index: 1;
+    opacity : 0.8;
+    color : white;
+}
+
+.sidebar h2{
+    opacity : 0;
+}
