@@ -6,8 +6,72 @@
     z-index: 1;
     opacity : 0.8;
     color : white;
+    border-top-right-radius: 50px;
+    border-end-end-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
 }
 
-.sidebar h2{
-    opacity : 0;
+.header {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 32px;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* background-color: blue; */
+}
+
+.closeButton img {
+    width: 95%;
+    height: 95%;
+    filter: brightness(0) invert(1);
+}
+
+.closeButton:hover img {
+    opacity: 0.7;
+}
+
+.navButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.navButton {
+    background: none;
+    border : none;
+    border-bottom: 2px solid rgba(255, 255, 255);
+    color: white;
+    padding: 12px 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+    font-family: Italiana;
+}
+
+.navButton:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+.buttonText {
+    font-size: max(2vw, 30px);
+    font-weight: 500;
+}
+
+.navButton img {
+    width: 40px;
+    height: 40px;
+    filter: brightness(0) invert(1);
 }
