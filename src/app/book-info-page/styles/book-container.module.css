@@ -30,6 +30,8 @@ button:hover{
     width : 55%;
     height : 100%;
     /* background-color: rgb(95, 95, 81); */
+    /* overflow : auto; */
+    text-overflow : ellipsis;
 }
 
 
@@ -37,7 +39,7 @@ button:hover{
     height : 85%;
     max-width : 500px;
     width : 100%;
-    background: blue;
+    /* background: blue; */
     overflow : hidden;
     border-radius : 40px;
     box-shadow : 0 0 50 20 #1C2224;
@@ -164,12 +166,54 @@ button:hover{
 
 .book-summary{
     /* background-color: white; */
+    
     font-size : min(2.5vw, 40px);
     padding-left : 10px;
     color : white;
     font-family : Italiana;
     -webkit-text-stroke : 0.25px white;
+    max-height : 60%;
     overflow : auto;
+    text-overflow: ellipsis;
+    --scrollbar-width: 8px;
+
+    /* mask fade distance, for use in mask calculations */
+    --mask-height: 32px;
+
+
+    padding-bottom : var(--mask-height);
+    /* The CSS mask */
+
+    /* The content mask is a linear gradient from top to bottom */
+    --mask-image-content: linear-gradient(
+        to bottom,
+        transparent,
+        black var(--mask-height),
+        black calc(70% - var(--mask-height)),
+        transparent
+    );
+
+    
+    --mask-size-content: calc(100% - var(--scrollbar-width)) 100%;
+
+    --mask-image-scrollbar: linear-gradient(black, black);
+    --mask-size-scrollbar: var(--scrollbar-width) 100%;
+
+    /* Apply the mask image and mask size variables */
+    mask-image: var(--mask-image-content), var(--mask-image-scrollbar);
+    mask-size: var(--mask-size-content), var(--mask-size-scrollbar);
+
+    /* Position the content gradient in the top left, and the 
+  scroll gradient in the top right */
+    mask-position: 0 0, 100% 0;
+
+    /* We don't repeat our mask images */
+    mask-repeat: no-repeat, no-repeat;
+}
+
+.book-summary p{
+    max-height : 100%;
+    text-overflow: ellipsis;
 }
 
 .chapter-list{

@@ -65,7 +65,7 @@ export default function MainPage(){
 
     return(
         <>  
-            {sidebarEnabled ? <Sidebar setSidebarEnabled={setSidebarEnabled}></Sidebar> : null}
+            {sidebarEnabled ? <Sidebar setSidebarEnabled={setSidebarEnabled} userID={userData.id}></Sidebar> : null}
             <header className={styles.mainheader}>
                     <button onClick={()=>{setSidebarEnabled(true)}}
                         style={sidebarEnabled? {visibility : "hidden",} : {}}>
@@ -78,7 +78,8 @@ export default function MainPage(){
                         }
                         :
                         ()=>{
-
+                            push(`/user-profile-page?userID=${user.user_metadata.sub}`);
+                            // `../../book-doc-page?booktitle=${bookTitle}&author=${author}&pdfurl=${pdfUrl}&bookid=${bookID}`
                         }
                     }>
                         <img src={isAdminPage ? "./plus.svg" : "./profile.svg"} alt="profile-button"/>

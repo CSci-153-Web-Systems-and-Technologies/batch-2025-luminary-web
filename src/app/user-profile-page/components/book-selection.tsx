@@ -1,5 +1,3 @@
-import BookCard from "./book-card"
-import styles from "../styles/book-selection.module.css"
 interface BookData{
     id : string,
     author : string,
@@ -10,11 +8,14 @@ interface BookData{
     pdf_url : string,
 }
 
-export interface BookSelectionType{
-    bookCollection : string,
-    bookGenre : string,
-    bookData : BookData[] | null,
+interface BookSelectionType{
+    collection : any,
+    collectionsEBook : {collectionid : string, bookid : string}[] | null,
+    hashMap : any,
 }
+
+import styles from '../../main-page/styles/book-selection.module.css'
+import BookCard from '@/app/main-page/components/book-card'
 function MockList(){
     return(
         <>
@@ -39,15 +40,16 @@ function MockList(){
 
 }
 
-function ActualList({bookGenre, bookData} : BookSelectionType ){
+function ActualList({collection, collectionsEBook, hashMap} : BookSelectionType ){
     return(
         <>
             {
-                bookData?.map((book)=> {
-                    if(bookGenre === book.genre){
+                collectionsEBook?.map((book, index)=> {
+                    if(book.collectionid === collection.id){
+                        const bookData = hashMap.get(book.bookid);
                         return(
-                            <li key={book.id}>
-                                <BookCard imgUrl={book.image_url} bookID={book.id}></BookCard>
+                            <li key={index}>
+                                <BookCard imgUrl={bookData.image_url} bookID={bookData.id}></BookCard>
                             </li>
                         )
                     }
@@ -56,29 +58,30 @@ function ActualList({bookGenre, bookData} : BookSelectionType ){
         </>
     )
 }
-export default function BookSelection( {bookCollection = "", bookGenre, bookData} : BookSelectionType )
-{
 
-    if(bookData !== null){
-        const book = bookData[0];
-        // console.log(book.image_url);
-    }
+export default function BookSelection( {collection, collectionsEBook , hashMap} : BookSelectionType )
+{
     return(
         <>
             <div className={styles["book-selection"]}>
-                <div className={styles["book-genre"]}>
+                <div className={styles["book-genre"]} style={{marginBottom : "20px"}}>
                     <span>
-                        {bookGenre}
+                        {collection.name}
                     </span>
                 </div>
                 <div className={styles["books"]}>
                     <ul className={styles["book-list"]}>
-                        {bookData === null ? <MockList></MockList> : <ActualList bookCollection={""} bookGenre ={bookGenre} bookData={bookData}></ActualList>}
+                        {collectionsEBook?.length > 0
+                         ?
+                         <ActualList collection={collection} collectionsEBook={collectionsEBook} hashMap={hashMap}></ActualList>
+                         :
+                         <div className={styles.contingency}>
+                            This collection is empty.
+                         </div>
+                        }
                     </ul>
                 </div>
             </div>
         </>
     )
 }
-
-
