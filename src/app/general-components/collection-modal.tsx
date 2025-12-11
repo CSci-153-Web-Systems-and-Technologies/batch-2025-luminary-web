@@ -100,7 +100,6 @@ export default function CollectionModal({setMode, modalMode, collectionData, boo
                                                 addToCollection(value)
                                             }
                                         }>
-                                            
                                             <img src={containsValue ? "./already-in-collection.svg" : "./add-to-collection-button.svg"}alt="add-to-collection" />
                                         </button>
                                     </li>

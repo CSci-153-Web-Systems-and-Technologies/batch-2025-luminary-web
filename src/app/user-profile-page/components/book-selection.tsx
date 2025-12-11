@@ -61,8 +61,6 @@ function ActualList({collection, collectionsEBook, hashMap} : BookSelectionType 
 
 export default function BookSelection( {collection, collectionsEBook , hashMap} : BookSelectionType )
 {
-    console.log("Filtered array: ");
-    console.log(collectionsEBook);
     return(
         <>
             <div className={styles["book-selection"]}>

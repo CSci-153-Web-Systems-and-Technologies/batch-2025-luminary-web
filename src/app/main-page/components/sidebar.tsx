@@ -2,12 +2,17 @@ import styles from '../styles/sidebar.module.css'
 import { useRouter } from 'next/navigation'
 interface SidebarProps{
     setSidebarEnabled : (boolean : boolean)=>void,
+    userID : string,
 }
 
-export default function Sidebar({setSidebarEnabled} : SidebarProps){
+export default function Sidebar({setSidebarEnabled, userID} : SidebarProps){
     const {push} = useRouter();
     function goToSearch(){
         push(`../../search-page`);
+    }
+
+    function goToFavorites(){
+        push(`/favorites-page?userid=${userID}`);
     }
     return(
     <>
@@ -22,7 +27,7 @@ export default function Sidebar({setSidebarEnabled} : SidebarProps){
                 <span className={styles['buttonText']}>Search</span>
                 <img src="./search.svg" alt="search icon"/>
             </button>
-            <button className={styles['navButton']}>
+            <button className={styles['navButton']} onClick={goToFavorites}>
                 <span className={styles['buttonText']}>Favorites</span>
                 <img src="./star.svg" alt="favorites icon"/>
             </button>

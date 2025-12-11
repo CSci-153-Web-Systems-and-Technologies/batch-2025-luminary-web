@@ -8,6 +8,8 @@ import { createClient } from '../../../utils/supabase/client';
 import { useState, useEffect } from 'react';
 import BookSelection from './components/book-selection';
 import { useRouter } from 'next/navigation';
+import EditUsername from '../general-components/edit-username';
+import EditCollection from '../general-components/edit-collection';
 function GenerateList({bookGenre, bookData} : BookSelectionType ){
     return(
         <>
@@ -26,6 +28,51 @@ function GenerateList({bookGenre, bookData} : BookSelectionType ){
     )
 }
 
+export enum ProfileModalMode{
+    EditUsername,
+    EditCollection,
+    EditCollectionName,
+    PublishBook,
+    Off
+}
+
+
+interface GenerateModalProps{
+    modalMode : ProfileModalMode,
+    setModalMode : (modalMode : ProfileModalMode)=>void,
+    userID : string | null,
+    fetchUser : ()=>Promise<void>
+    collections : any,
+    fetchCollection : ()=>Promise<void>
+}
+function GenerateModal({modalMode, setModalMode, userID, fetchUser, collections, fetchCollection} : GenerateModalProps)
+{
+
+
+    if(userID){
+        if(modalMode === ProfileModalMode.EditUsername){
+            return(
+                <>
+                    <EditUsername userID={userID} setModalMode={setModalMode} fetchUser={fetchUser}></EditUsername>
+                </>
+            )
+        }
+        else if(modalMode === ProfileModalMode.EditCollection){
+            return(
+                <>
+                    <EditCollection setMode={setModalMode} collectionData={collections} fetchCollection={fetchCollection}></EditCollection>
+                </>
+            )
+        }
+        else if(modalMode === ProfileModalMode.EditCollectionName){
+            
+        }
+        else if(modalMode === ProfileModalMode.PublishBook){
+
+        }
+    }
+    return null;
+}
 
 export default function UserProfilePage() {
     const supabase = createClient();
@@ -35,9 +82,11 @@ export default function UserProfilePage() {
     const [collections, setCollections] = useState<any>(null);
     const [collectionEBooks, setCollectionEBooks] = useState<any>(null);
     const [hashMap, setMap] = useState(new Map());
+    const [modalMode, setModalMode] = useState(ProfileModalMode.Off);
     const {back} = useRouter();
-    useEffect(()=>{
-        const fetchUser = async()=>{
+    
+    const fetchUser = async()=>{
+            console.log("fetch user called!");
             const {data, error} = await supabase.from('profiles').select('*').eq('id', userID).limit(1).single();
             if(error){
                 alert("Error fetching data!");
@@ -45,25 +94,24 @@ export default function UserProfilePage() {
             else{
                 
             }
-            console.log("Data: ");
-            console.log(data);
             setUser(!error ? data : null);
         }
+
+    useEffect(()=>{
         fetchUser();
     }, [userID])
-    useEffect(
-        ()=>{
-            const fetchCollections = async()=>{
+
+    const fetchCollections = async()=>{
                 if(user){
                     const {data, error} = await supabase.from('collections').select("*").eq("user_id", user.id);
                     if(error){
                         alert("Failed to fetch collections!");
                     }
                     setCollections(!error ? data : null);
-                    console.log(data);
                 }
-                
-            }
+    }
+    useEffect(
+        ()=>{
             fetchCollections();
         }
         ,
@@ -73,13 +121,11 @@ export default function UserProfilePage() {
     useEffect(
         ()=>{
             const fetchCollectionEBooks = async()=>{
-                console.log("Collections: ");
-                console.log(collections);
+                
                 const tempEBooksCollection : any[] = [];
                 if(user && collections){
-                    console.log("Collection length " + collections.length);
                     for(let i = 0; i < collections.length; i++){
-                        console.log("Iteration: " + (i + 1));
+                       
                         const {data, error} = await supabase.from("collectionebook").select("*").eq("collectionid", collections[i].id);
                         if(error){
                             alert("Failed to fetch Collection E Books!");
@@ -95,22 +141,17 @@ export default function UserProfilePage() {
                                         alert("Error fetching book data!");
                                     }
                                     tempMap.set(outerData[j].bookid, data);
-                                    console.log("Book data: ");
-                                    console.log(data);
-                                    console.log(tempMap.get(outerData[j].bookid));
+                                    
                                     setMap(tempMap);
                                 }
                             }
                         }
-                        console.log("Collection: ");
                         if(data){
                             for(let j = 0; j < data.length; j++){
                                 tempEBooksCollection.push(data[j]);
                             }
                         }
-                        console.log(tempEBooksCollection)
-                        console.log("collection Ebook: ");
-                        console.log(tempEBooksCollection);
+                        
                     }
                     // alert("Done fetching everything!");
                     setCollectionEBooks(tempEBooksCollection);
@@ -127,6 +168,17 @@ export default function UserProfilePage() {
         console.log(collectionEBooks);
     }, [collectionEBooks]);
     return (
+        <>
+        <GenerateModal 
+        modalMode={modalMode} 
+        setModalMode={setModalMode}
+        userID={userID}
+        fetchUser={fetchUser}
+        collections={collections}
+        fetchCollection={fetchCollections}
+        >
+
+        </GenerateModal>
         <div className={styles.container}>
             <div className={styles.padding}>
                 <button onClick={()=>{back()}}>
@@ -144,13 +196,16 @@ export default function UserProfilePage() {
                         </div>
                     </div>
                     <div className={styles.actionsSection}>
-                        <button className={styles.actionButton}>Edit Username</button>
+                        <button className={styles.actionButton} onClick={()=>{setModalMode(ProfileModalMode.EditUsername)}}>Edit Username</button>
                         <button className={styles.actionButton}>{!user?.isWriter ? "Become A Writer!" : "Publish story"}</button>
                     </div>     
 
                     <div className={styles.collections}>
                         <header>
                             Collections
+                            <button onClick={()=>{setModalMode(ProfileModalMode.EditCollection)}}>
+                                <img src="/pencil.svg" alt="" />
+                            </button>
                         </header>
 
                         {collections?.map((collection, index)=>{
@@ -168,6 +223,7 @@ export default function UserProfilePage() {
                     </div>
             </div>
         </div>  
+        </>
     );
 }
 

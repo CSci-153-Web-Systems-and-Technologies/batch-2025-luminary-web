@@ -65,7 +65,7 @@ export default function MainPage(){
 
     return(
         <>  
-            {sidebarEnabled ? <Sidebar setSidebarEnabled={setSidebarEnabled}></Sidebar> : null}
+            {sidebarEnabled ? <Sidebar setSidebarEnabled={setSidebarEnabled} userID={userData.id}></Sidebar> : null}
             <header className={styles.mainheader}>
                     <button onClick={()=>{setSidebarEnabled(true)}}
                         style={sidebarEnabled? {visibility : "hidden",} : {}}>
