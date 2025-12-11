@@ -90,7 +90,7 @@ export default function MainPage(){
                 {/* {user !== null ? <p>hello {user.user_metadata.full_name} </p>: <p>You are not logged in.</p>} */}
                 <BookOfTheDay></BookOfTheDay>
                 <BookSelection bookGenre='Continue Reading' bookData={null}></BookSelection>
-                <BookSelection bookCollection="Custom Collection" bookGenre='Fantasy' bookData={bookData}></BookSelection>
+                <BookSelection bookGenre='Fantasy' bookData={bookData}></BookSelection>
                 <BookSelection bookGenre='Romance' bookData={bookData}></BookSelection>
             </main>
         </>

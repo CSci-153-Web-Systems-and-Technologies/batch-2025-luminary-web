@@ -95,3 +95,13 @@
     background-color: blue;
     display : flex;
 }
+
+.contingency{
+    /* background-color: blue; */
+    width : 100vw;
+    color : rgb(140, 139, 139);
+    font-family : Italiana;
+    font-size : min(max(5vw, 40px), 60px);
+    padding-left : 20px;
+    text-align: center;
+}
