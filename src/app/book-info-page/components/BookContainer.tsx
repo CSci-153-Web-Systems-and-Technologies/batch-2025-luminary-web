@@ -4,13 +4,14 @@ import { useRouter } from 'next/navigation';
 import styles from '../styles/book-container.module.css'
 import { createClient } from '../../../../utils/supabase/client';
 interface BookContainerProps{
-    bookID : string,
+    bookID : string | null,
     imgUrl : string,
     bookTitle : string,
     author : string,
     genre : string,
     bookSummary : string,
-    pdfUrl : string
+    pdfUrl : string,
+    isPending : string | null
 }
 
 const chapterListEnabledStyle =
@@ -25,7 +26,6 @@ interface ReadChapterProps{
     bookTitle : string,
     author : string
     pdfUrl : string,
-
 }
 function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, pdfUrl} : ReadChapterProps){
     const {push} = useRouter();
@@ -57,7 +57,7 @@ function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, 
     )
 }
 interface BookInfoProps{
-    bookID : string,
+    bookID : string | null,
     bookTitle : string,
     author : string,
     genre : string,
@@ -210,7 +210,7 @@ function ChapterList({isMobile} : ChapterListProps){
         </div>
     )
 }
-export default function BookContainer( {bookID, imgUrl, bookTitle, author, genre, bookSummary, pdfUrl} : BookContainerProps){
+export default function BookContainer( {bookID, imgUrl, bookTitle, author, genre, bookSummary, pdfUrl, isPending} : BookContainerProps){
     const isSSR = typeof window === "undefined";
     const [isChapterMode, setChapterMode] = useState(false);
     const [width, setWidth] = useState(0);

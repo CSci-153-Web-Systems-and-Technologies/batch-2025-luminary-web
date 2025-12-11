@@ -92,6 +92,13 @@
     overflow : hidden;
 }
 
+.cover-container button{
+    height : 100%;
+    width : 100%;
+    background : none;
+    padding : 0;
+}
+
 .cover-container:hover{
     transform : scale(1.15);
     box-shadow: 0px 2px 5px 2px white;
