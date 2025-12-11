@@ -10,6 +10,7 @@ import BookSelection from './components/book-selection';
 import { useRouter } from 'next/navigation';
 import EditUsername from '../general-components/edit-username';
 import EditCollection from '../general-components/edit-collection';
+import PublishBook from '../general-components/publish-book';
 function GenerateList({bookGenre, bookData} : BookSelectionType ){
     return(
         <>
@@ -31,7 +32,6 @@ function GenerateList({bookGenre, bookData} : BookSelectionType ){
 export enum ProfileModalMode{
     EditUsername,
     EditCollection,
-    EditCollectionName,
     PublishBook,
     Off
 }
@@ -43,9 +43,11 @@ interface GenerateModalProps{
     userID : string | null,
     fetchUser : ()=>Promise<void>
     collections : any,
-    fetchCollection : ()=>Promise<void>
+    fetchCollection : ()=>Promise<void>,
+    user : any,
+    
 }
-function GenerateModal({modalMode, setModalMode, userID, fetchUser, collections, fetchCollection} : GenerateModalProps)
+function GenerateModal({modalMode, setModalMode, userID, fetchUser, collections, fetchCollection, user} : GenerateModalProps)
 {
 
 
@@ -64,11 +66,12 @@ function GenerateModal({modalMode, setModalMode, userID, fetchUser, collections,
                 </>
             )
         }
-        else if(modalMode === ProfileModalMode.EditCollectionName){
-            
-        }
         else if(modalMode === ProfileModalMode.PublishBook){
-
+            return(
+                <>
+                    <PublishBook userID={userID} full_name={user?.full_name} setModalMode={setModalMode}></PublishBook>
+                </>
+            )
         }
     }
     return null;
@@ -176,6 +179,7 @@ export default function UserProfilePage() {
         fetchUser={fetchUser}
         collections={collections}
         fetchCollection={fetchCollections}
+        user={user}
         >
 
         </GenerateModal>
@@ -197,7 +201,7 @@ export default function UserProfilePage() {
                     </div>
                     <div className={styles.actionsSection}>
                         <button className={styles.actionButton} onClick={()=>{setModalMode(ProfileModalMode.EditUsername)}}>Edit Username</button>
-                        <button className={styles.actionButton}>{!user?.isWriter ? "Become A Writer!" : "Publish story"}</button>
+                        <button className={styles.actionButton} onClick={()=>{setModalMode(ProfileModalMode.PublishBook)}}>{!user?.isWriter ? "Become A Writer!" : "Publish story"}</button>
                     </div>     
 
                     <div className={styles.collections}>
