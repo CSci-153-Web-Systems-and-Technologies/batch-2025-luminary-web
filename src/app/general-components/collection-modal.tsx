@@ -72,14 +72,14 @@ export default function CollectionModal({setMode, modalMode, collectionData, boo
                 <main>
                     <ul>
 
-                        {collectionData.length === 0 ? 
+                        {collectionData?.length === 0 ? 
                         <div>
                             <h1 style={{color : "#aeaeaeff"}}>
                                 You have no collections.
                             </h1>
                         </div>
                         : null}
-                        {collectionData.map(
+                        {collectionData?.map(
                             (value, index)=>{
                                 let containsValue : boolean = false;
                                 

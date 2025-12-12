@@ -1,5 +1,6 @@
 import styles from '../styles/sidebar.module.css'
 import { useRouter } from 'next/navigation'
+import { signout } from '../../../../lib/auth-actions'
 interface SidebarProps{
     setSidebarEnabled : (boolean : boolean)=>void,
     userID : string,
