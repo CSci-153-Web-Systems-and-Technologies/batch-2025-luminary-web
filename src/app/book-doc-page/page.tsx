@@ -84,7 +84,11 @@ function Modal({modalMode, setModalMode, setPageNumber, page, collectionData, no
 }
 
 
-
+interface bookToCache{
+    bookID : string | null,
+    page : string,
+    imgUrl : string | null,
+}
 export default function Reader(){
     const supabase = createClient();
 
@@ -101,9 +105,77 @@ export default function Reader(){
     const bookTitle = searchParams.get("booktitle");
     const author = searchParams.get("author");
     const bookURL = searchParams.get("pdfurl");
+    const imgUrl = searchParams.get("imgurl");
     const bookID = searchParams.get("bookid");
-
+    const [continueReading, setContinueReading] = useState<any>(null);
     // console.log(bookID);
+    async function leavePage(){
+
+        const bookToAdd : bookToCache = {
+            bookID : bookID,
+            page : pageNumber.toString(),
+            imgUrl : imgUrl,
+        }
+        const tempContinueReading = continueReading;
+        if(tempContinueReading && tempContinueReading?.length > 0){
+            let bookAlreadyInList = false;
+            let i = 0;
+            for(i = 0; i < tempContinueReading.length; i++){
+                if(bookToAdd.bookID === tempContinueReading[i].bookID){
+                    bookAlreadyInList = true;
+                    break;
+                }
+            }
+
+            if(bookAlreadyInList){
+                const modifiedList = tempContinueReading.filter((value, index) => index !== i);
+                modifiedList.unshift(bookToAdd);
+                const {error} = await supabase.from('profiles').update(
+                    {
+                        continuereading : modifiedList,
+                    }
+                ).eq('id', user.user_metadata.sub);
+                if(error){
+                    // alert("Error updating continuereading that already exists!");
+                }else{
+                    // alert("Successfully updated continuereading that already exists!")
+                }
+            }
+            else{
+                tempContinueReading.unshift(bookToAdd);
+                if(tempContinueReading.length > 10){
+                    tempContinueReading.pop();
+                }
+                const {error} = await supabase.from('profiles').update(
+                    {
+                        continuereading : tempContinueReading,
+                    }
+                ).eq('id', user.user_metadata.sub);
+                if(error){
+                    // alert("Error pushing new book to continuereading!");
+                }
+                else{
+                    // alert("Successfully pushed new book to continuereading!");
+                }
+            }
+        }else{
+            const {error} = await 
+            supabase.from('profiles').update({
+                continuereading : [bookToAdd],
+            }).eq('id', user.user_metadata.sub);
+
+            if(error){
+                // alert("Error inserting continuereading!");
+            }
+            else{
+                // alert("continuereading pushed!");
+            }
+             
+        }
+        router.back();
+    }
+
+
     const goToPrevPage = () =>
         setPageNumber(pageNumber - 1 <= 1 ? 1 : pageNumber - 1);
 
@@ -124,8 +196,22 @@ export default function Reader(){
             }  = await supabase.auth.getUser();
             setUser(user);
             console.log(user);
+            const fetchContinueReading = async()=>{
+                const {data, error} = await supabase.from('profiles').select('continuereading').eq('id', user?.user_metadata.sub).limit(1).single();
+                if(error){
+                    // alert("failed to get continuereading array!");
+                }
+                else{
+                    // alert("Fetched continuereading array!");
+                    // console.log("continuereading array:");
+                    // console.log(data?.continuereading);
+                }
+                setContinueReading(data?.continuereading);
+            }
+            fetchContinueReading();
         }
         fetchUser();
+        
     }, []);
 
 
@@ -288,7 +374,7 @@ export default function Reader(){
                 
                 <header className={headerStyles['bookdoc-header']}>
                     <div className={headerStyles["left-hand-side"]}>
-                        <button onClick={()=>{router.back();}}>
+                        <button onClick={()=>{leavePage();}}>
                             <img src="arrow-left.svg" alt="arrow-left" />
                         </button>
                         <div className={headerStyles["book-info"]}>

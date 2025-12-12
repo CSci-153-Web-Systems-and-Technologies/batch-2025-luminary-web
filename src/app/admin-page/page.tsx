@@ -82,15 +82,25 @@ export default function AdminPage() {
             }
         ]).single();
 
-        if(error){
+        if(error){  
             alert("Failed to insert book!");
             return;
         }
+
+
         alert("Book accepted!");
+        makeWriter(book.writerid);
         deleteBook(book.id);
         
     };
-
+    const makeWriter = async(writerID : string)=>{
+        const {error} = await supabase.from('profiles').update({
+            isWriter : true,
+        }).eq('id', writerID);
+        if(error){
+            alert("error setting writer to true!");
+        }
+    }
     const deleteBook = async (bookID: string) => {
         // You will handle Supabase delete here
         console.log("Deleting book:", bookID);

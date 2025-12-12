@@ -11,6 +11,7 @@ import { useRouter } from 'next/navigation';
 import EditUsername from '../general-components/edit-username';
 import EditCollection from '../general-components/edit-collection';
 import PublishBook from '../general-components/publish-book';
+import AuthorSelection from './components/author-selection';
 function GenerateList({bookGenre, bookData} : BookSelectionType ){
     return(
         <>
@@ -86,6 +87,7 @@ export default function UserProfilePage() {
     const [collectionEBooks, setCollectionEBooks] = useState<any>(null);
     const [hashMap, setMap] = useState(new Map());
     const [modalMode, setModalMode] = useState(ProfileModalMode.Off);
+    const [authorBooks, setAuthorBooks] = useState<any>(null);
     const {back} = useRouter();
     
     const fetchUser = async()=>{
@@ -113,14 +115,26 @@ export default function UserProfilePage() {
                     setCollections(!error ? data : null);
                 }
     }
+    async function fetchAuthorBooks(){
+        const {data, error} = await supabase.from('books').select("*").eq('writerid', user.id);
+        console.log(data);
+        setAuthorBooks(data);
+    }
+    
     useEffect(
         ()=>{
+
+
             fetchCollections();
+            if(user?.isWriter){
+               fetchAuthorBooks();
+            }
         }
         ,
         [user]
     )
-
+    
+    
     useEffect(
         ()=>{
             const fetchCollectionEBooks = async()=>{
@@ -205,6 +219,19 @@ export default function UserProfilePage() {
                     </div>     
 
                     <div className={styles.collections}>
+
+
+                        {
+                            user?.isWriter ? 
+                            <>
+                        
+                            <AuthorSelection books={authorBooks}></AuthorSelection>
+
+                            </>
+                            : 
+                            null
+                        }
+                        
                         <header>
                             Collections
                             <button onClick={()=>{setModalMode(ProfileModalMode.EditCollection)}}>

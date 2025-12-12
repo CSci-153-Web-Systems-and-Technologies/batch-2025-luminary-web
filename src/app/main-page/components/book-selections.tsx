@@ -11,9 +11,9 @@ interface BookData{
 }
 
 export interface BookSelectionType{
-    bookCollection : string,
     bookGenre : string,
     bookData : BookData[] | null,
+    userData : any,
 }
 function MockList(){
     return(
@@ -39,15 +39,30 @@ function MockList(){
 
 }
 
-function ActualList({bookGenre, bookData} : BookSelectionType ){
+function ActualList({bookGenre, bookData, userData} : BookSelectionType ){
     return(
         <>
             {
+                bookGenre === 'Continue Reading' ? 
+
+                userData?.continuereading.map((book)=>{
+                    const imgUrl : string = book.imgUrl;
+                    const bookID : string = book.bookID;
+                    return(
+                        <li key={bookID}>
+                            <BookCard imgUrl={imgUrl} bookID={bookID}> </BookCard>
+                        </li>
+                    )
+                })
+
+                :
+
+
                 bookData?.map((book)=> {
                     if(bookGenre === book.genre){
                         return(
                             <li key={book.id}>
-                                <BookCard imgUrl={book.image_url} bookID={book.id}></BookCard>
+                                <BookCard imgUrl={book.image_url } bookID={book.id}></BookCard>
                             </li>
                         )
                     }
@@ -56,9 +71,10 @@ function ActualList({bookGenre, bookData} : BookSelectionType ){
         </>
     )
 }
-export default function BookSelection( {bookCollection = "", bookGenre, bookData} : BookSelectionType )
+export default function BookSelection( {bookGenre="", bookData, userData} : BookSelectionType )
 {
-
+    console.log("Continue reading: ");
+    console.log(userData?.continuereading);
     if(bookData !== null){
         const book = bookData[0];
         // console.log(book.image_url);
@@ -73,7 +89,7 @@ export default function BookSelection( {bookCollection = "", bookGenre, bookData
                 </div>
                 <div className={styles["books"]}>
                     <ul className={styles["book-list"]}>
-                        {bookData === null ? <MockList></MockList> : <ActualList bookCollection={""} bookGenre ={bookGenre} bookData={bookData}></ActualList>}
+                        {bookData === null ? <MockList></MockList> : <ActualList bookGenre={bookGenre} bookData={bookData} userData={userData}></ActualList>}
                     </ul>
                 </div>
             </div>
