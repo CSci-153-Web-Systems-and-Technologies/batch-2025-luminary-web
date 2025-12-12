@@ -3,16 +3,8 @@ import {useState, useEffect} from 'react';
 import { useRouter } from 'next/navigation';
 import styles from '../styles/book-container.module.css'
 import { createClient } from '../../../../utils/supabase/client';
-interface BookContainerProps{
-    bookID : string | null,
-    imgUrl : string,
-    bookTitle : string,
-    author : string,
-    genre : string,
-    bookSummary : string,
-    pdfUrl : string,
-    isPending : string | null
-}
+import { isLocalFileSystem } from 'react-pdf/dist/shared/utils.js';
+
 
 const chapterListEnabledStyle =
 {
@@ -27,8 +19,22 @@ interface ReadChapterProps{
     author : string,
     imgUrl : string,
     pdfUrl : string,
+    userData : any,
 }
-function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, imgUrl, pdfUrl} : ReadChapterProps){
+function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, imgUrl, pdfUrl, userData} : ReadChapterProps){
+    
+    let isCached = false;
+    let index = 0;
+    if(userData){
+        const continueReading = userData[0].continuereading;
+        for(let i = 0; i < continueReading.length; i++){
+            if(bookID === continueReading[i].bookID){
+                isCached=true;
+                index = i;
+                break;
+            }
+        }
+    }
     const {push} = useRouter();
     console.log("Image url: ");
     console.log(imgUrl);
@@ -36,9 +42,13 @@ function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, 
         console.log(bookTitle);
         console.log(author);
         console.log(pdfUrl);
-        push(`../../book-doc-page?booktitle=${bookTitle}&author=${author}&pdfurl=${pdfUrl}&bookid=${bookID}&imgurl=${imgUrl}`);
+
+        const url =  `../../book-doc-page?booktitle=${bookTitle}&author=${author}&pdfurl=${pdfUrl}&bookid=${bookID}&imgurl=${imgUrl}` + (isCached ? `&cachedpage=${userData[0].continuereading[index].page}` : '')
+        push(url);
     }
-    
+    console.log("userData in ReadChapter:");
+    console.log(userData);
+    console.log("isCached " + isCached.toString());
     return(
         <div className={styles["read-chapter"]}>
             <button className={styles["read-now"]}
@@ -115,7 +125,7 @@ function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isCh
             alert("Error adding to favorites!")
         }
         else{
-            alert("Added to favorites!");
+            // alert("Added to favorites!");
             fetchFavorite();
         }
     }
@@ -126,7 +136,7 @@ function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isCh
             alert("Error deleting from favorites!");
         }
         else{
-            alert("Deleted from favorites!");
+            // alert("Deleted from favorites!");
             fetchFavorite();
         }
     }
@@ -212,7 +222,21 @@ function ChapterList({isMobile} : ChapterListProps){
         </div>
     )
 }
-export default function BookContainer( {bookID, imgUrl, bookTitle, author, genre, bookSummary, pdfUrl, isPending} : BookContainerProps){
+
+interface BookContainerProps{
+    bookID : string | null,
+    imgUrl : string,
+    bookTitle : string,
+    author : string,
+    genre : string,
+    bookSummary : string,
+    pdfUrl : string,
+    isPending : string | null,
+    userData : any,
+}
+
+
+export default function BookContainer( {bookID, imgUrl, bookTitle, author, genre, bookSummary, pdfUrl, isPending, userData} : BookContainerProps){
     const isSSR = typeof window === "undefined";
     const [isChapterMode, setChapterMode] = useState(false);
     const [width, setWidth] = useState(0);
@@ -232,6 +256,8 @@ export default function BookContainer( {bookID, imgUrl, bookTitle, author, genre
         };
     }, []);
 
+    console.log("User data in BookContainer");
+    console.log(userData);
     return (
         <>
                 <div className={styles["book-container"]}>
@@ -249,6 +275,7 @@ export default function BookContainer( {bookID, imgUrl, bookTitle, author, genre
                             author={author}
                             imgUrl={imgUrl}
                             pdfUrl={pdfUrl}
+                            userData={userData}
                             ></ReadChapter>
                        }
                     </div>
