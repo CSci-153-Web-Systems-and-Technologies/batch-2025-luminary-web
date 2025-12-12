@@ -1,14 +1,30 @@
 "use client";
-import { useRouter } from "next/navigation"
-import { login } from "../../../lib/auth-actions";
-
-
+import { redirect, useRouter } from "next/navigation"
+import { login, signInWithGoogle } from "../../../lib/auth-actions";
+import { createClient } from "../../../utils/supabase/client";
+import { useState, useEffect } from "react";
+import { userAgent } from "next/server";
 
 export default function LoginPage(){
+    const supabase = createClient();
     const {push} = useRouter();
+    const [user, setUser] = useState<any>(null);
     const signUp = () => {
         push('../sign-up');
     }
+
+    useEffect(
+        ()=>{
+            const getUser = async () => {
+                const {data : {user}, error} = await supabase.auth.getUser();
+                
+                if(user){
+                    setUser(user);
+                    redirect('/main-page');
+                }
+            }
+            getUser();
+        }, [])
     return(
         <div className="login-page">
            <div className="component-flex">
@@ -30,7 +46,7 @@ export default function LoginPage(){
                         formAction={login}
                         >Sign in</button>
                         <div className="sign-with-email-div">
-                            <button className="sign-with-email">Sign in with e-mail</button>
+                            <button className="sign-with-email" onClick={signInWithGoogle}>Sign in with e-mail</button>
                         </div>
                         <div className="no-account">
                             <h3>Don{`'`}t have an account?</h3>

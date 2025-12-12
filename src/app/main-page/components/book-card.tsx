@@ -1,20 +1,24 @@
 "use client"
-import { useRouter } from "next/navigation"
+import { useRouter } from 'next/navigation';
 interface BookCardProp{
     imgUrl : string,
+    bookID : string,
 }
 import styles from '../styles/book-selection.module.css'
-export default function BookCard({imgUrl} : BookCardProp){
+import Link from 'next/link';
+export default function BookCard({imgUrl, bookID} : BookCardProp){
     const {push} = useRouter();
     function openBookDetails(){
-        push('../../book-info-page');
+        push(`../../book-info-page?bookId=${bookID}`);
     }
+
     return(
         <>
-            
-            <div className={styles["cover-container"]} onClick={openBookDetails}>
-                <img src={imgUrl} alt="book card" />
-            </div>
+                <div className={styles["cover-container"]}>
+                    <button onClick={openBookDetails}>
+                    <img src={imgUrl} alt="book card" />
+                    </button>
+                </div>
             
         </>
     )

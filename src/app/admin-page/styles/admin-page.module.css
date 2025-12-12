@@ -1,0 +1,322 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  padding: 20px;
+  background: transparent;
+  color: #fff;
+  font-weight: 100;
+  font-family: Italiana;
+  font-size: min(max(6vw, 18px), 90px);
+  border-bottom: 2px solid rgb(88, 86, 96);
+  box-sizing: border-box;
+  position: relative;
+}
+
+.backButton {
+  position: absolute;
+  left: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: min(max(6vw, 40px), 50px);
+  height: min(max(6vw, 40px), 50px);
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.backButton:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.backButton img {
+  width: 100%;
+  height: 100%;
+  filter: brightness(0) invert(1);
+}
+
+.pageWrapper {
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.container {
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  flex: 1;
+}
+
+.content {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  height: fit-content;
+}
+
+.formSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: fit-content;
+  gap: 12px;
+  width: calc(100% - 30px);
+}
+
+.form {
+  width: 100%;
+  background: linear-gradient(to bottom, #0E1115 60%, #1E2835 100%);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0px 20px 40px 0 #000000;
+  max-height: 75vh;
+  overflow: hidden;
+}
+
+.heading {
+  margin: 0 0 16px 0;
+  font-size: 28px;
+  color: #ffffff;
+  font-family: Italiana;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.label {
+  font-size: 25px;
+  color: #ffffff;
+  font-family: Italiana;
+}
+
+.input,
+.textarea {
+  border: none;
+  padding: 10px 12px;
+  font-size: 18px;
+  outline: none;
+  background-color: transparent;
+  color: #ffffff;
+  font-family: Roboto, sans-serif;
+  transition: border-color 0.2s ease;
+  border-bottom: 2px solid #ffffff;
+}
+
+.textarea {
+  resize: vertical;
+  background-color: #1D232A;
+  border: 1px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-radius: 6px;
+}
+
+.input:focus,
+.textarea:focus {
+  border-color: #ffffff;
+}
+
+.fileInput {
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.fileInput::file-selector-button {
+  background-color: #1D232A;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: Roboto, sans-serif;
+  transition: border-color 0.2s ease;
+}
+
+.fileInput::file-selector-button:hover {
+  border-color: #ffffff;
+}
+
+.filename {
+  font-size: 13px;
+  color: #a0a0a0;
+  margin-top: 6px;
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.submit {
+  background: #ffffff;
+  color: #0f172a;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.submit:hover {
+  opacity: 0.9;
+}
+
+/* Pending Requests Section */
+.pendingSection {
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionHeading {
+  font-size: 20px;
+  color: #ffffff;
+  margin: 0 0 16px 0;
+}
+
+.requestsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  padding-right: 8px;
+}
+
+.emptyMessage {
+  color: #a0a0a0;
+  text-align: center;
+  padding: 32px 16px;
+}
+
+.requestCard {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px;
+  transition: all 0.3s ease;
+}
+
+.requestCard:hover {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.requestActions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.acceptBtn,
+.rejectBtn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.acceptBtn:hover {
+  background: rgba(34, 197, 94, 0.2);
+}
+
+.rejectBtn:hover {
+  background: rgba(239, 68, 68, 0.2);
+}
+
+.acceptBtn img,
+.rejectBtn img {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+.requestContent {
+  flex: 1;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.requestContent:hover {
+  transform: translateX(4px);
+}
+
+.bookInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bookTitle {
+  margin: 0;
+  font-size: 16px;
+  color: #ffffff;
+  font-weight: 600;
+}
+
+.bookAuthor {
+  margin: 0;
+  font-size: 13px;
+  color: #a0a0a0;
+}
+
+.bookGenre {
+  margin: 0;
+  font-size: 12px;
+  color: #7a8a99;
+}
+
+@media (max-width: 800px) {
+  .pageWrapper {
+    overflow: auto;
+  }
+
+  .content {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .requestsList {
+    max-height: none;
+    overflow-y: visible;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 800px) {
+  .form { padding: 16px; }
+  .container {
+    padding: 12px;
+  }
+}
+
