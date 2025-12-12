@@ -50,7 +50,9 @@ function ActualList({bookGenre, bookData, userData} : BookSelectionType ){
                     const bookID : string = book.bookID;
                     return(
                         <li key={bookID}>
-                            <BookCard imgUrl={imgUrl} bookID={bookID}> </BookCard>
+
+                            <BookCard imgUrl={imgUrl} bookID={bookID}></BookCard>
+                        
                         </li>
                     )
                 })

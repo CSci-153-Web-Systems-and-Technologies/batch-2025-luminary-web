@@ -5,7 +5,7 @@ import { useSearchParams } from "next/navigation"
 import BookCard from '../main-page/components/book-card';
 import { BookSelectionType } from '../main-page/components/book-selections';
 import { createClient } from '../../../utils/supabase/client';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import BookSelection from './components/book-selection';
 import { useRouter } from 'next/navigation';
 import EditUsername from '../general-components/edit-username';
@@ -77,8 +77,7 @@ function GenerateModal({modalMode, setModalMode, userID, fetchUser, collections,
     }
     return null;
 }
-
-export default function UserProfilePage() {
+function ProfileToRender(){
     const supabase = createClient();
     const searchParams = useSearchParams();
     const userID = searchParams.get("userID");
@@ -262,5 +261,10 @@ export default function UserProfilePage() {
         </div>  
         </>
     );
+}
+export default function UserProfilePage() {
+    <Suspense>
+        <ProfileToRender></ProfileToRender>
+    </Suspense>
 }
 

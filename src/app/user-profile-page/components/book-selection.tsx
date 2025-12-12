@@ -71,7 +71,7 @@ export default function BookSelection( {collection, collectionsEBook , hashMap} 
                 </div>
                 <div className={styles["books"]}>
                     <ul className={styles["book-list"]}>
-                        {collectionsEBook?.length > 0
+                        {collectionsEBook && collectionsEBook?.length > 0
                          ?
                          <ActualList collection={collection} collectionsEBook={collectionsEBook} hashMap={hashMap}></ActualList>
                          :
