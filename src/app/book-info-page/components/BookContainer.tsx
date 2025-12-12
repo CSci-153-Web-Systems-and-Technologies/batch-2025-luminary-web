@@ -20,21 +20,23 @@ const chapterListEnabledStyle =
 }
 
 interface ReadChapterProps{
-    bookID : string,
+    bookID : string | null,
     isChapterMode : boolean,
     setChapterMode : (x : boolean) => void,
     bookTitle : string,
-    author : string
+    author : string,
+    imgUrl : string,
     pdfUrl : string,
 }
-function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, pdfUrl} : ReadChapterProps){
+function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, imgUrl, pdfUrl} : ReadChapterProps){
     const {push} = useRouter();
-
+    console.log("Image url: ");
+    console.log(imgUrl);
     function openBook(bookTitle : string, author : string, pdfUrl : string){
         console.log(bookTitle);
         console.log(author);
         console.log(pdfUrl);
-        push(`../../book-doc-page?booktitle=${bookTitle}&author=${author}&pdfurl=${pdfUrl}&bookid=${bookID}`);
+        push(`../../book-doc-page?booktitle=${bookTitle}&author=${author}&pdfurl=${pdfUrl}&bookid=${bookID}&imgurl=${imgUrl}`);
     }
     
     return(
@@ -222,6 +224,7 @@ export default function BookContainer( {bookID, imgUrl, bookTitle, author, genre
     useEffect(() => {
         handleWindowSizeChange();
     })
+    
     useEffect(() => {
         window.addEventListener('resize', handleWindowSizeChange);
         return () => {
@@ -244,6 +247,7 @@ export default function BookContainer( {bookID, imgUrl, bookTitle, author, genre
                             setChapterMode={setChapterMode}
                             bookTitle={bookTitle}
                             author={author}
+                            imgUrl={imgUrl}
                             pdfUrl={pdfUrl}
                             ></ReadChapter>
                        }

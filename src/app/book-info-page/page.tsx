@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import { createClient } from "../../../utils/supabase/client";
 import Image from "next/image";
 
+
 export default function BookInfoPage(){
     const supabase = createClient();
     const {back} = useRouter();

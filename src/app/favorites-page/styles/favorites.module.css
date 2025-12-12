@@ -55,7 +55,7 @@
     color : white;
     font-family: Italiana;
     border-bottom : 3px solid white;
-    font-size : max(min(7vw, 85px), 50px);
+    font-size : max(min(7vw, 55px), 40px);
     /* background-color: black; */
 }
 

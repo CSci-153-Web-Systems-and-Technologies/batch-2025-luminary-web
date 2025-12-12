@@ -89,9 +89,12 @@ export default function MainPage(){
             <main className={styles.mainbody}>
                 {/* {user !== null ? <p>hello {user.user_metadata.full_name} </p>: <p>You are not logged in.</p>} */}
                 <BookOfTheDay></BookOfTheDay>
-                <BookSelection bookGenre='Continue Reading' bookData={null}></BookSelection>
-                <BookSelection bookGenre='Fantasy' bookData={bookData}></BookSelection>
-                <BookSelection bookGenre='Romance' bookData={bookData}></BookSelection>
+                {userData?.continuereading ? 
+                <>
+                    <BookSelection bookGenre='Continue Reading' bookData={bookData} userData={userData}></BookSelection>
+                </>:null}
+                <BookSelection bookGenre='Fantasy' bookData={bookData} userData={userData}></BookSelection>
+                <BookSelection bookGenre='Romance' bookData={bookData} userData={userData}></BookSelection>
             </main>
         </>
     )

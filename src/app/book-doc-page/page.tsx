@@ -87,6 +87,7 @@ function Modal({modalMode, setModalMode, setPageNumber, page, collectionData, no
 interface bookToCache{
     bookID : string | null,
     page : string,
+    imgUrl : string | null,
 }
 export default function Reader(){
     const supabase = createClient();
@@ -104,16 +105,16 @@ export default function Reader(){
     const bookTitle = searchParams.get("booktitle");
     const author = searchParams.get("author");
     const bookURL = searchParams.get("pdfurl");
+    const imgUrl = searchParams.get("imgurl");
     const bookID = searchParams.get("bookid");
     const [continueReading, setContinueReading] = useState<any>(null);
     // console.log(bookID);
-    
-    
-     async function leavePage(){
+    async function leavePage(){
 
         const bookToAdd : bookToCache = {
             bookID : bookID,
             page : pageNumber.toString(),
+            imgUrl : imgUrl,
         }
         const tempContinueReading = continueReading;
         if(tempContinueReading && tempContinueReading?.length > 0){
