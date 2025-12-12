@@ -44,7 +44,7 @@ function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, 
         console.log(author);
         console.log(pdfUrl);
 
-        const url =  `../../book-doc-page?booktitle=${bookTitle}&author=${author}&pdfurl=${pdfUrl}&bookid=${bookID}&imgurl=${imgUrl}` + (isCached ? `&cachedpage=${userData[0].continuereading[index].page}` : '')
+        const url =  `../../book-doc-page?booktitle=${bookTitle}&author=${author}&pdfurl=${pdfUrl}&bookid=${bookID}&imgurl=${imgUrl}` + (isCached ? `&cachedpage=${userData.continuereading[index].page}` : '')
         push(url);
     }
     return(

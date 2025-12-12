@@ -4,7 +4,7 @@ import headerStyles from './styles/header.module.css';
 
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import dynamic from "next/dynamic";
 import PDFViewer from "./components/PDFViewer";
 import { useRouter } from 'next/navigation';
@@ -89,7 +89,9 @@ interface bookToCache{
     page : string,
     imgUrl : string | null,
 }
-export default function Reader(){
+
+
+function RenderBook(){
     const supabase = createClient();
 
     
@@ -467,4 +469,14 @@ export default function Reader(){
             </>
         )
 }
+export default function Reader(){
+    return(
+        <Suspense>
+            <RenderBook></RenderBook>
+        </Suspense>
+    )    
+}
+
+
+
 
