@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import styles from '../styles/book-container.module.css'
 import { createClient } from '../../../../utils/supabase/client';
 import { isLocalFileSystem } from 'react-pdf/dist/shared/utils.js';
-
+import { ModalMode } from '@/app/book-doc-page/page';
 
 const chapterListEnabledStyle =
 {
@@ -36,8 +36,6 @@ function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, 
         }
     }
     const {push} = useRouter();
-    console.log("Image url: ");
-    console.log(imgUrl);
     function openBook(bookTitle : string, author : string, pdfUrl : string){
         console.log(bookTitle);
         console.log(author);
@@ -46,9 +44,6 @@ function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, 
         const url =  `../../book-doc-page?booktitle=${bookTitle}&author=${author}&pdfurl=${pdfUrl}&bookid=${bookID}&imgurl=${imgUrl}` + (isCached ? `&cachedpage=${userData[0].continuereading[index].page}` : '')
         push(url);
     }
-    console.log("userData in ReadChapter:");
-    console.log(userData);
-    console.log("isCached " + isCached.toString());
     return(
         <div className={styles["read-chapter"]}>
             <button className={styles["read-now"]}
@@ -77,13 +72,14 @@ interface BookInfoProps{
     isMobile : boolean,
     isChapterMode : boolean,
     setChapterMode :  (x : boolean) => void,
-    pdfUrl : string
+    pdfUrl : string,
+    setMode : (mode : ModalMode)=>void,
 }
-function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isChapterMode, setChapterMode, pdfUrl} : BookInfoProps){
+
+function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isChapterMode, setChapterMode, pdfUrl, setMode} : BookInfoProps){
     const supabase = createClient();
     const [favorite, setFavorite] = useState(false);
     const[user, setUser] = useState<any>(null);
-
     useEffect(()=>{
         if(bookID && supabase){
             const getUser = async()=>{
@@ -159,7 +155,7 @@ function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isCh
                 onClick={favoriteAction}>
                     <img src={favorite ? "/favored-star.svg" : "/star.svg"} alt="" />
                 </button>
-                <button className={styles["add-to-collection"]}>
+                <button className={styles["add-to-collection"]} onClick={()=>{setMode(ModalMode.Collection)}}>
                     <img src="/add-collection.svg" alt="" />
                 </button>
             </div>
@@ -233,10 +229,11 @@ interface BookContainerProps{
     pdfUrl : string,
     isPending : string | null,
     userData : any,
+    setMode : (mode : ModalMode)=>void,
 }
 
 
-export default function BookContainer( {bookID, imgUrl, bookTitle, author, genre, bookSummary, pdfUrl, isPending, userData} : BookContainerProps){
+export default function BookContainer( {bookID, imgUrl, bookTitle, author, genre, bookSummary, pdfUrl, isPending, userData, setMode} : BookContainerProps){
     const isSSR = typeof window === "undefined";
     const [isChapterMode, setChapterMode] = useState(false);
     const [width, setWidth] = useState(0);
@@ -256,8 +253,6 @@ export default function BookContainer( {bookID, imgUrl, bookTitle, author, genre
         };
     }, []);
 
-    console.log("User data in BookContainer");
-    console.log(userData);
     return (
         <>
                 <div className={styles["book-container"]}>
@@ -280,9 +275,9 @@ export default function BookContainer( {bookID, imgUrl, bookTitle, author, genre
                        }
                     </div>
                     {!isChapterMode ? 
-                    <BookInfo bookID={bookID}pdfUrl = {pdfUrl} bookTitle={bookTitle} author={author} genre={genre} bookSummary={bookSummary} isMobile={isMobile} isChapterMode={isChapterMode} setChapterMode={setChapterMode}></BookInfo>
+                    <BookInfo bookID={bookID}pdfUrl = {pdfUrl} bookTitle={bookTitle} author={author} genre={genre} bookSummary={bookSummary} isMobile={isMobile} isChapterMode={isChapterMode} setChapterMode={setChapterMode} setMode={setMode}></BookInfo>
                     : isMobile ? 
-                    <BookInfo bookID={bookID} pdfUrl = {pdfUrl} bookTitle={bookTitle} author={author} genre={genre} bookSummary={bookSummary} isMobile={isMobile} isChapterMode={isChapterMode} setChapterMode={setChapterMode}></BookInfo>
+                    <BookInfo bookID={bookID} pdfUrl = {pdfUrl} bookTitle={bookTitle} author={author} genre={genre} bookSummary={bookSummary} isMobile={isMobile} isChapterMode={isChapterMode} setChapterMode={setChapterMode} setMode={setMode}></BookInfo>
                     :
                     <ChapterList isMobile={isMobile}></ChapterList>
                     }
