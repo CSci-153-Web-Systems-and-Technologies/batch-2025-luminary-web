@@ -238,7 +238,9 @@ function InfoToRender(){
     )
 }
 export default function BookInfoPage(){
-    <Suspense>
-        <InfoToRender></InfoToRender>    
-    </Suspense>
+    return(
+        <Suspense>
+            <InfoToRender></InfoToRender>    
+        </Suspense>
+    )
 }

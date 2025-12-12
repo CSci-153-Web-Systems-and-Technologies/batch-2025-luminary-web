@@ -263,8 +263,10 @@ function ProfileToRender(){
     );
 }
 export default function UserProfilePage() {
-    <Suspense>
-        <ProfileToRender></ProfileToRender>
-    </Suspense>
+    return(
+        <Suspense>
+            <ProfileToRender></ProfileToRender>
+        </Suspense>
+    )
 }
 
