@@ -3,10 +3,12 @@ import { useRouter } from "next/navigation"
 import styles from './styles/favorites.module.css'
 import resultStyles from '../search-page/styles/results.module.css'
 import { useSearchParams } from "next/navigation";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { createClient } from "../../../utils/supabase/client";
 import BookCard from "../main-page/components/book-card";
-export default function Favorites(){
+
+
+function FavoritesToRender(){
     const {back} = useRouter();
     const supabase = createClient();
     const [favoritesData, setFavoritesData] = useState<any>(null);
@@ -106,5 +108,12 @@ export default function Favorites(){
         </div>
         
         </>
+    )
+}
+export default function Favorites(){
+    return(
+        <Suspense>
+            <FavoritesToRender></FavoritesToRender>
+        </Suspense>
     )
 }

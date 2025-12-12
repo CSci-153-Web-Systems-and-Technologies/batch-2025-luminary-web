@@ -22,11 +22,12 @@ interface ReadChapterProps{
     userData : any,
 }
 function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, imgUrl, pdfUrl, userData} : ReadChapterProps){
-    
+    console.log("user data read chapter");
+    console.log(userData);
     let isCached = false;
     let index = 0;
     if(userData){
-        const continueReading = userData[0].continuereading;
+        const continueReading = userData.continuereading;
         if(continueReading){
             for(let i = 0; i < continueReading?.length; i++){
                 if(bookID === continueReading[i]?.bookID){
@@ -43,7 +44,7 @@ function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, 
         console.log(author);
         console.log(pdfUrl);
 
-        const url =  `../../book-doc-page?booktitle=${bookTitle}&author=${author}&pdfurl=${pdfUrl}&bookid=${bookID}&imgurl=${imgUrl}` + (isCached ? `&cachedpage=${userData[0].continuereading[index].page}` : '')
+        const url =  `../../book-doc-page?booktitle=${bookTitle}&author=${author}&pdfurl=${pdfUrl}&bookid=${bookID}&imgurl=${imgUrl}` + (isCached ? `&cachedpage=${userData.continuereading[index].page}` : '')
         push(url);
     }
     return(
@@ -76,9 +77,10 @@ interface BookInfoProps{
     setChapterMode :  (x : boolean) => void,
     pdfUrl : string,
     setMode : (mode : ModalMode)=>void,
+    imgUrl : string,
 }
 
-function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isChapterMode, setChapterMode, pdfUrl, setMode} : BookInfoProps){
+function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isChapterMode, setChapterMode, pdfUrl, setMode, imgUrl} : BookInfoProps){
     const supabase = createClient();
     const [favorite, setFavorite] = useState(false);
     const[user, setUser] = useState<any>(null);
@@ -86,10 +88,11 @@ function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isCh
         if(bookID && supabase){
             const getUser = async()=>{
                 const {data : {user}} = await supabase.auth.getUser();
-                setUser(user);
+                setUser(user ? user : null);
 
-                const {data, error} = await supabase.from('favorites').select('*').eq('book_id', bookID).eq('user_id', user.id);
-                setFavorite((data && data.length > 0 ? true : false));
+                    const {data, error} = await supabase.from('favorites').select('*').eq('book_id', bookID).eq('user_id', user?.id);
+                    setFavorite((data && data.length > 0 ? true : false));
+            
             }   
             getUser();
         }
@@ -164,7 +167,8 @@ function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isCh
             {isMobile && 
                 <ReadChapter bookID={bookID} isChapterMode={isChapterMode} setChapterMode={setChapterMode} bookTitle={bookTitle}
                             author={author}
-                            pdfUrl={pdfUrl}></ReadChapter>
+                            imgUrl={imgUrl}
+                            pdfUrl={pdfUrl} userData={user}></ReadChapter>
             }
             {
             !isChapterMode ?  
@@ -277,9 +281,9 @@ export default function BookContainer( {bookID, imgUrl, bookTitle, author, genre
                        }
                     </div>
                     {!isChapterMode ? 
-                    <BookInfo bookID={bookID}pdfUrl = {pdfUrl} bookTitle={bookTitle} author={author} genre={genre} bookSummary={bookSummary} isMobile={isMobile} isChapterMode={isChapterMode} setChapterMode={setChapterMode} setMode={setMode}></BookInfo>
+                    <BookInfo imgUrl={imgUrl} bookID={bookID}pdfUrl = {pdfUrl} bookTitle={bookTitle} author={author} genre={genre} bookSummary={bookSummary} isMobile={isMobile} isChapterMode={isChapterMode} setChapterMode={setChapterMode} setMode={setMode}></BookInfo>
                     : isMobile ? 
-                    <BookInfo bookID={bookID} pdfUrl = {pdfUrl} bookTitle={bookTitle} author={author} genre={genre} bookSummary={bookSummary} isMobile={isMobile} isChapterMode={isChapterMode} setChapterMode={setChapterMode} setMode={setMode}></BookInfo>
+                    <BookInfo imgUrl={imgUrl} bookID={bookID} pdfUrl = {pdfUrl} bookTitle={bookTitle} author={author} genre={genre} bookSummary={bookSummary} isMobile={isMobile} isChapterMode={isChapterMode} setChapterMode={setChapterMode} setMode={setMode}></BookInfo>
                     :
                     <ChapterList isMobile={isMobile}></ChapterList>
                     }
