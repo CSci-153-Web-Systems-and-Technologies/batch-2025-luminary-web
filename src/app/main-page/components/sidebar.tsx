@@ -32,7 +32,7 @@ export default function Sidebar({setSidebarEnabled, userID} : SidebarProps){
                 <span className={styles['buttonText']}>Favorites</span>
                 <img src="./star.svg" alt="favorites icon"/>
             </button>
-            <button className={styles['navButton']}>
+            <button className={styles['navButton']} onClick={signout}>
                 <span className={styles['buttonText']}>Logout</span>
                 <img src="./logout.svg" alt="logout icon"/>
             </button>

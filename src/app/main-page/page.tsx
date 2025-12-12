@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import BookOfTheDay from './components/book-of-the-day';
 import BookSelection from './components/book-selections';
 import { createClient } from '../../../utils/supabase/client';
-import { useRouter } from 'next/navigation';
+import { redirect, useRouter } from 'next/navigation';
 import Sidebar from './components/sidebar'
 export default function MainPage(){
     const {push} = useRouter();
@@ -21,8 +21,12 @@ export default function MainPage(){
     useEffect(()=> {
         const fetchUser = async() => {
             const {
-                data : {user},
+                data : {user}, error
             }  = await supabase.auth.getUser();
+            if(error){
+                redirect('/login-page');
+            }else{
+            }
             setUser(user);
             console.log(user);
         }
@@ -33,7 +37,7 @@ export default function MainPage(){
     useEffect(()=> {
         const fetchUserData = async()=>{
             if(user){
-                const {data, error} = await supabase.from('profiles').select('*').eq('id', user.user_metadata.sub).limit(1).single();
+                const {data, error} = await supabase.from('profiles').select('*').eq('id', user.id).limit(1).single();
                 if(error){
                     console.error("Error fetching id");
                 }
@@ -65,7 +69,7 @@ export default function MainPage(){
 
     return(
         <>  
-            {sidebarEnabled ? <Sidebar setSidebarEnabled={setSidebarEnabled} userID={userData.id}></Sidebar> : null}
+            {sidebarEnabled ? <Sidebar setSidebarEnabled={setSidebarEnabled} userID={userData?.id}></Sidebar> : null}
             <header className={styles.mainheader}>
                     <button onClick={()=>{setSidebarEnabled(true)}}
                         style={sidebarEnabled? {visibility : "hidden",} : {}}>
@@ -78,7 +82,7 @@ export default function MainPage(){
                         }
                         :
                         ()=>{
-                            push(`/user-profile-page?userID=${user.user_metadata.sub}`);
+                            push(`/user-profile-page?userID=${user.id}`);
                             // `../../book-doc-page?booktitle=${bookTitle}&author=${author}&pdfurl=${pdfUrl}&bookid=${bookID}`
                         }
                     }>

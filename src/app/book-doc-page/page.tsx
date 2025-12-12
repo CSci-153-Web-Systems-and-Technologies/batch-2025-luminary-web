@@ -135,7 +135,7 @@ export default function Reader(){
                     {
                         continuereading : modifiedList,
                     }
-                ).eq('id', user.user_metadata.sub);
+                ).eq('id', user.id);
                 if(error){
                     // alert("Error updating continuereading that already exists!");
                 }else{
@@ -151,7 +151,7 @@ export default function Reader(){
                     {
                         continuereading : tempContinueReading,
                     }
-                ).eq('id', user.user_metadata.sub);
+                ).eq('id', user.id);
                 if(error){
                     // alert("Error pushing new book to continuereading!");
                 }
@@ -163,7 +163,7 @@ export default function Reader(){
             const {error} = await 
             supabase.from('profiles').update({
                 continuereading : [bookToAdd],
-            }).eq('id', user.user_metadata.sub);
+            }).eq('id', user.id);
 
             if(error){
                 // alert("Error inserting continuereading!");
@@ -198,7 +198,7 @@ export default function Reader(){
             setUser(user);
             console.log(user);
             const fetchContinueReading = async()=>{
-                const {data, error} = await supabase.from('profiles').select('continuereading').eq('id', user?.user_metadata.sub).limit(1).single();
+                const {data, error} = await supabase.from('profiles').select('continuereading').eq('id', user?.id).limit(1).single();
                 if(error){
                     // alert("failed to get continuereading array!");
                 }
@@ -238,7 +238,7 @@ export default function Reader(){
 
     async function fetchCollectionData(){
         if(user){
-                const {data, error} = await supabase.from('collections').select("*").eq('user_id', user.user_metadata.sub);
+                const {data, error} = await supabase.from('collections').select("*").eq('user_id', user.id);
                 if(error){
                     console.error("Error fetching collection!");
                 }
@@ -250,7 +250,7 @@ export default function Reader(){
     }
     async function fetchCollectionEBooksData(){
         if(user){
-            const {data, error} = await supabase.from('collectionebook').select("*").eq('bookid', bookID).eq("user_id", user.user_metadata.sub);
+            const {data, error} = await supabase.from('collectionebook').select("*").eq('bookid', bookID).eq("user_id", user.id);
                 if(error){
                     console.error("Error fetching collectionebooks!");
                 }
@@ -262,7 +262,7 @@ export default function Reader(){
     }
     async function fetchNoteData(){
         if(user){
-            const {data, error} = await supabase.from('notes').select("*").eq('userid', user.user_metadata.sub);
+            const {data, error} = await supabase.from('notes').select("*").eq('userid', user.id);
                 if(error){
                     console.error("Error fetching notes!");
                 }
@@ -274,8 +274,8 @@ export default function Reader(){
     }
     async function fetchBookmarksData(){
         if(user){
-            console.log(bookID + " " + user.user_metadata.sub);
-            const {data, error} = await supabase.from('bookmarks').select("*").eq('userid', user.user_metadata.sub).eq('bookid', bookID);
+            console.log(bookID + " " + user.id);
+            const {data, error} = await supabase.from('bookmarks').select("*").eq('userid', user.id).eq('bookid', bookID);
                 if(error){
                     console.error("Error fetching notes!");
                 }
@@ -325,7 +325,7 @@ export default function Reader(){
         const {data, error} = await supabase.from('bookmarks').insert([
             {
                 bookid : bookID,
-                userid : user.user_metadata.sub,
+                userid : user.id,
                 page : pageNumber,
             }
         ]);
@@ -340,7 +340,7 @@ export default function Reader(){
     async function deleteBookmark(){
         const {error} = await supabase.from('bookmarks').delete()
         .eq('bookid', bookID)
-        .eq('userid', user.user_metadata.sub)
+        .eq('userid', user.id)
         .eq('page', pageNumber);
         if(error){
             alert("Error deleting page!");
@@ -362,7 +362,7 @@ export default function Reader(){
                 modalMode={modalMode} 
                 setModalMode={setModalMode} 
                 setPageNumber={setPageNumber} 
-                userID={ user?.user_metadata.sub } 
+                userID={ user?.id } 
                 bookID={bookID}
                 collectionData={collectionData}
                 notesData={notesData}

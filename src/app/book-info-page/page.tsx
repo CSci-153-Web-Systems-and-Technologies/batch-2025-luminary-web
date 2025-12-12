@@ -76,7 +76,7 @@ export default function BookInfoPage(){
 
     async function fetchCollectionData(){
         if(user){
-                const {data, error} = await supabase.from('collections').select("*").eq('user_id', user.user_metadata.sub);
+                const {data, error} = await supabase.from('collections').select("*").eq('user_id', user.id);
                 if(error){
                     alert("Error fetching collection!");
                 }
@@ -90,7 +90,7 @@ export default function BookInfoPage(){
     }
     async function fetchCollectionEBooksData(){
         if(user){
-            const {data, error} = await supabase.from('collectionebook').select("*").eq('bookid', bookID).eq("user_id", user.user_metadata.sub);
+            const {data, error} = await supabase.from('collectionebook').select("*").eq('bookid', bookID).eq("user_id", user.id);
                 if(error){
                     alert("Error fetching collectionebooks!");
                 }
@@ -128,7 +128,7 @@ export default function BookInfoPage(){
             
             setUser(user);
             const getUser=async()=>{
-            const{data, error} = await supabase.from('profiles').select("*").eq('id', user?.user_metadata.sub);
+            const{data, error} = await supabase.from('profiles').select("*").eq('id', user?.id);
             if(error){
                 alert("could not fetch data!");
             }
