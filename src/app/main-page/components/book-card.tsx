@@ -9,23 +9,15 @@ import Link from 'next/link';
 export default function BookCard({imgUrl, bookID} : BookCardProp){
     const {push} = useRouter();
     function openBookDetails(){
-        push(`../../book-info-page/${bookID}`);
+        push(`../../book-info-page?bookId=${bookID}`);
     }
+
     return(
         <>
                 <div className={styles["cover-container"]}>
-                    <Link prefetch={false}href={
-                        {
-                            pathname : `/book-info-page/bookId`,
-                            query : {
-                                bookId : bookID,
-                            },
-                        }
-                    }
-                    as={`/book-info-page/${bookID}` }
-                    >
+                    <button onClick={openBookDetails}>
                     <img src={imgUrl} alt="book card" />
-                    </Link>
+                    </button>
                 </div>
             
         </>

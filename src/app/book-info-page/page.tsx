@@ -1,28 +1,25 @@
 "use client";
-import BookContainer from "../components/BookContainer"
-import styles from '../styles/book-info-page.module.css'
+import BookContainer from "./components/BookContainer"
+import styles from './styles/book-info-page.module.css'
 import { useRouter } from "next/navigation"
 import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
-import { createClient } from "../../../../utils/supabase/client";
+import { createClient } from "../../../utils/supabase/client";
 import Image from "next/image";
-export default function BookInfoPage({params} : {params : Promise<{bookId : string}>}){
+
+export default function BookInfoPage(){
     const supabase = createClient();
     const {back} = useRouter();
-    const [bookID, setBookID] = useState<string | null>(null);
     const [bookData, setBookData] = useState<any>(null);
     const [favorite, setFavorite] = useState(false);
     
-    const [user, setUser] = useState<any>(null)
+    const [user, setUser] = useState<any>(null);
+    const searchParams = useSearchParams();
+    const bookID : string | null = searchParams.get('bookId');
+    const isPending = searchParams.get('ispending');
+    console.log(isPending);
     useEffect(()=>{
-        const getBookID = async()=>{
-            const searchParams = await params;
-            const {bookId} = searchParams;
-            setBookID(bookId);
-            console.log("The Book ID is: " + bookId);
-        }
-        getBookID();
-
+        
         const getUser=async()=>{
             
             const {data : {user}} = await supabase.auth.getUser();
@@ -32,7 +29,6 @@ export default function BookInfoPage({params} : {params : Promise<{bookId : stri
 
         getUser();
     }, [])
-
 
     
     useEffect(()=>{
@@ -48,10 +44,23 @@ export default function BookInfoPage({params} : {params : Promise<{bookId : stri
                 setBookData(!error ? data : null);
             }
             
-            fetchBookData();
+            
+            const fetchPendingBookData = async()=>{
+                const {data, error} = await supabase.from('pending-books').select("*").eq("id", bookID).single();
+                if(error){
+                    console.error("Error fetching books!");
+                }
+                else{
+                    console.log(data);
+                }
+                setBookData(!error ? data : null);              
+            }
 
-            if(user){
-                fetchFavorite();
+            if(isPending){
+                fetchPendingBookData();
+            }
+            else{
+                fetchBookData();
             }
         }
     }, [bookID])
@@ -83,6 +92,7 @@ export default function BookInfoPage({params} : {params : Promise<{bookId : stri
                 bookSummary={bookData?.description}
                 pdfUrl={bookData?.pdf_url}
                 bookID={bookID}
+                isPending={isPending}
                 ></BookContainer>
                
                 <div className={styles["review-section"]}>
