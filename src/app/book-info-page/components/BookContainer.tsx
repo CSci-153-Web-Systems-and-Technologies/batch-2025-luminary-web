@@ -88,10 +88,11 @@ function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isCh
         if(bookID && supabase){
             const getUser = async()=>{
                 const {data : {user}} = await supabase.auth.getUser();
-                setUser(user);
+                setUser(user ? user : null);
 
-                const {data, error} = await supabase.from('favorites').select('*').eq('book_id', bookID).eq('user_id', user?.id);
-                setFavorite((data && data.length > 0 ? true : false));
+                    const {data, error} = await supabase.from('favorites').select('*').eq('book_id', bookID).eq('user_id', user?.id);
+                    setFavorite((data && data.length > 0 ? true : false));
+            
             }   
             getUser();
         }
