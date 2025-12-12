@@ -17,11 +17,10 @@ interface ReadChapterProps{
     setChapterMode : (x : boolean) => void,
     bookTitle : string,
     author : string,
-    imgUrl : string,
     pdfUrl : string,
-    userData : any,
+
 }
-function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, imgUrl, pdfUrl, userData} : ReadChapterProps){
+function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, pdfUrl} : ReadChapterProps){
     
     let isCached = false;
     let index = 0;
@@ -88,7 +87,7 @@ function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isCh
                 const {data : {user}} = await supabase.auth.getUser();
                 setUser(user);
 
-                const {data, error} = await supabase.from('favorites').select('*').eq('book_id', bookID).eq('user_id', user.id);
+                const {data} = await supabase.from('favorites').select('*').eq('book_id', bookID).eq('user_id', user?.id);
                 setFavorite((data && data.length > 0 ? true : false));
             }   
             getUser();
@@ -270,9 +269,7 @@ export default function BookContainer( {bookID, imgUrl, bookTitle, author, genre
                             setChapterMode={setChapterMode}
                             bookTitle={bookTitle}
                             author={author}
-                            imgUrl={imgUrl}
                             pdfUrl={pdfUrl}
-                            userData={userData}
                             ></ReadChapter>
                        }
                     </div>
