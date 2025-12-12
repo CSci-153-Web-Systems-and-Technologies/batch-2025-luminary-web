@@ -169,7 +169,17 @@
     background-color: rgb(255, 255, 255, 0.25);
 }
 
-
+.nocollections{
+    width : 100vw;
+    text-align : center;
+    font-size : 4vw;
+    color : rgb(180, 180, 180);
+    height : 20vh;
+    display : flex;
+    justify-content: center;
+    align-items: center;
+    font-family : Italiana;
+}
 
 @media (max-width: 640px) {
     .profileSection {

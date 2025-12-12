@@ -239,7 +239,8 @@ export default function UserProfilePage() {
                             </button>
                         </header>
 
-                        {collections?.map((collection, index)=>{
+                        
+                        {collections && collections.length > 0  ? collections?.map((collection, index)=>{
                             const filter = collectionEBooks?.filter((book)=>{
                                 return book?.collectionid === collection.id
                             })
@@ -249,7 +250,12 @@ export default function UserProfilePage() {
                                     <BookSelection collection={collection} collectionsEBook={filter} hashMap={hashMap}></BookSelection>
                                 </div>
                             )
-                        })}
+                        })
+                        :
+                        <div className={styles.nocollections}>
+                            You have no collections.
+                        </div>
+                    }
                         
                     </div>
             </div>

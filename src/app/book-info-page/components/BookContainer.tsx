@@ -27,11 +27,13 @@ function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, 
     let index = 0;
     if(userData){
         const continueReading = userData[0].continuereading;
-        for(let i = 0; i < continueReading.length; i++){
-            if(bookID === continueReading[i].bookID){
-                isCached=true;
-                index = i;
-                break;
+        if(continueReading){
+            for(let i = 0; i < continueReading?.length; i++){
+                if(bookID === continueReading[i]?.bookID){
+                    isCached=true;
+                    index = i;
+                    break;
+                }
             }
         }
     }
@@ -86,7 +88,7 @@ function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isCh
                 const {data : {user}} = await supabase.auth.getUser();
                 setUser(user);
 
-                const {data, error} = await supabase.from('favorites').select('*').eq('book_id', bookID).eq('user_id', user.user_metadata.sub);
+                const {data, error} = await supabase.from('favorites').select('*').eq('book_id', bookID).eq('user_id', user.id);
                 setFavorite((data && data.length > 0 ? true : false));
             }   
             getUser();
@@ -96,7 +98,7 @@ function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isCh
 
 
     const fetchFavorite = async()=>{
-        const {data, error} = await supabase.from('favorites').select('*').eq('book_id', bookID).eq('user_id', user.user_metadata.sub);
+        const {data, error} = await supabase.from('favorites').select('*').eq('book_id', bookID).eq('user_id', user.id);
 
         setFavorite((data && data.length > 0 ? true : false));
     }
@@ -114,7 +116,7 @@ function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isCh
         const {error} = await supabase.from('favorites').insert([
             {
                 'book_id' : bookID,
-                'user_id' : user.user_metadata.sub,
+                'user_id' : user.id,
             }
         ])    
         if(error){
@@ -127,7 +129,7 @@ function BookInfo({bookID, bookTitle, author, genre, bookSummary, isMobile, isCh
     }
 
     async function deleteFromFavorites(){
-        const {error} = await supabase.from('favorites').delete().eq("book_id", bookID).eq("user_id", user.user_metadata.sub);
+        const {error} = await supabase.from('favorites').delete().eq("book_id", bookID).eq("user_id", user.id);
         if(error){
             alert("Error deleting from favorites!");
         }
