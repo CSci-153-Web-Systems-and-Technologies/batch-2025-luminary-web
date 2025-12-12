@@ -6,30 +6,6 @@ import { createClient } from '../../../utils/supabase/client';
 import { useRouter } from 'next/navigation';
 
 
-interface PendingBook{
-    username : string,
-    booktitle : string,
-    author : string,
-    genre : string,
-    bookSummary : string,
-    bookID : string,
-    image_url : string,
-    pdf_url : string,
-}
-
-const mockdata: PendingBook[] = [
-
-    {
-        username : "Stratosphere",
-        booktitle : "Augustus and the Descendants",
-        author : "Stratosphere",
-        genre : "Fantasy",
-        bookSummary : "Some summary",
-        bookID : "someid",
-        image_url : "some url",
-        pdf_url : "some url",
-    },
-]
 export default function AdminPage() {
     const supabase = createClient();
     const router = useRouter();
@@ -187,7 +163,7 @@ export default function AdminPage() {
         setDescription('');
         setCoverFile(null);
         setPdfFile(null);
-		// eslint-disable-next-line no-console
+		
 	};
 
 	return (

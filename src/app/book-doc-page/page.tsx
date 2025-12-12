@@ -5,7 +5,6 @@ import headerStyles from './styles/header.module.css';
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import { useState, useEffect } from "react";
-import dynamic from "next/dynamic";
 import PDFViewer from "./components/PDFViewer";
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
@@ -183,10 +182,6 @@ export default function Reader(){
     const goToNextPage = () =>
         setPageNumber(pageNumber + 1 >= numPages ? numPages : pageNumber + 1);
 
-    const setOff = () => {
-        setModalMode(ModalMode.Off);
-        console.log("Set Mode off!")
-    }
 
 
     const [user, setUser] = useState<any>(null);
@@ -213,7 +208,7 @@ export default function Reader(){
         }
         fetchUser();
         
-    }, []);
+    }, [supabase]);
 
 
     const [collectionData, setCollectionData] = useState<any>(null);
@@ -322,7 +317,7 @@ export default function Reader(){
 
 
     async function addBookmark(){
-        const {data, error} = await supabase.from('bookmarks').insert([
+        const {error} = await supabase.from('bookmarks').insert([
             {
                 bookid : bookID,
                 userid : user.id,
