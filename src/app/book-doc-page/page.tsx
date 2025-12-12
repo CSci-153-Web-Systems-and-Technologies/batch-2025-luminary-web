@@ -98,9 +98,10 @@ export default function Reader(){
 
     const router = useRouter();
     const searchParams = useSearchParams();
+    const cachedPage = searchParams.get('cachedpage')
     // console.log("Search Params : " + searchParams);
     const [numPages, setNumPages] = useState<number>(0);
-    const [pageNumber, setPageNumber] = useState(1);
+    const [pageNumber, setPageNumber] = useState(cachedPage ? Number(cachedPage) : 1);
     const [modalMode, setModalMode] = useState(ModalMode.Off);
     const bookTitle = searchParams.get("booktitle");
     const author = searchParams.get("author");

@@ -15,6 +15,7 @@ export default function BookInfoPage(){
     const [favorite, setFavorite] = useState(false);
     
     const [user, setUser] = useState<any>(null);
+    const [userData, setUserData] = useState<any>(null);
     const searchParams = useSearchParams();
     const bookID : string | null = searchParams.get('bookId');
     const isPending = searchParams.get('ispending');
@@ -25,11 +26,26 @@ export default function BookInfoPage(){
             
             const {data : {user}} = await supabase.auth.getUser();
 
+            
             setUser(user);
+            const getUser=async()=>{
+            const{data, error} = await supabase.from('profiles').select("*").eq('id', user?.user_metadata.sub);
+            if(error){
+                alert("could not fetch data!");
+            }
+            else{
+                // alert("profile data fetched!");
+            }
+            console.log("profile data");
+            console.log(data);
+            setUserData(data);
+            }
+            getUser();
         }
 
         getUser();
-    }, [])
+    }, [supabase])
+
 
     
     useEffect(()=>{
@@ -64,10 +80,11 @@ export default function BookInfoPage(){
                 fetchBookData();
             }
         }
-    }, [bookID])
+    }, [supabase, isPending, bookID])
 
 
-    
+    console.log("User data in page:");
+    console.log(userData);
     return(
         <>
             <div className={styles["bookinfopage"]}> 
@@ -94,6 +111,7 @@ export default function BookInfoPage(){
                 pdfUrl={bookData?.pdf_url}
                 bookID={bookID}
                 isPending={isPending}
+                userData={userData}
                 ></BookContainer>
                
                 <div className={styles["review-section"]}>
