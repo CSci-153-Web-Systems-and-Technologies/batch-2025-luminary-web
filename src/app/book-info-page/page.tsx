@@ -2,7 +2,7 @@
 import BookContainer from "./components/BookContainer"
 import styles from './styles/book-info-page.module.css'
 import { useRouter } from "next/navigation"
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { createClient } from "../../../utils/supabase/client";
 import Image from "next/image";
@@ -52,12 +52,12 @@ function Modal({
 
         }
         return null;
-    }
+}
 
-export default function BookInfoPage(){
 
-    
-    const supabase = createClient();
+function InfoToRender(){
+
+     const supabase = createClient();
     const {back} = useRouter();
     const [bookData, setBookData] = useState<any>(null);
     const [favorite, setFavorite] = useState(false);
@@ -236,4 +236,9 @@ export default function BookInfoPage(){
             </div>
         </>
     )
+}
+export default function BookInfoPage(){
+    <Suspense>
+        <InfoToRender></InfoToRender>    
+    </Suspense>
 }
