@@ -45,7 +45,7 @@ function Modal({
             return <AddCollection 
         setMode={setMode} 
         modalMode={mode} 
-        userID={userData[0].id} 
+        userID={userData.id} 
         bookID={bookID}
         fetchDatas={fetchCollectionDatas}>
         </AddCollection>
@@ -74,7 +74,7 @@ export default function BookInfoPage(){
     const [collectionEBooksData, setCollectionEBooksData] = useState<any>(null);
 
     useEffect(()=>{
-        console.log(userData[0].id);
+        console.log(userData?.id);
     }, [mode])
 
     async function fetchCollectionData(){
@@ -131,7 +131,7 @@ export default function BookInfoPage(){
             
             setUser(user);
             const getUser=async()=>{
-            const{data, error} = await supabase.from('profiles').select("*").eq('id', user.id);
+            const{data, error} = await supabase.from('profiles').select("*").eq('id', user?.id).limit(1).single();
             if(error){
                 alert("could not fetch data!");
             }
