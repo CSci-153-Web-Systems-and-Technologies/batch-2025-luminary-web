@@ -46,7 +46,7 @@ export default function LoginPage(){
                         formAction={login}
                         >Sign in</button>
                         <div className="sign-with-email-div">
-                            <button className="sign-with-email" onClick={signInWithGoogle}>Sign in with e-mail</button>
+                            <button type='button' className="sign-with-email" onClick={signInWithGoogle}>Sign in with e-mail</button>
                         </div>
                         <div className="no-account">
                             <h3>Don{`'`}t have an account?</h3>
