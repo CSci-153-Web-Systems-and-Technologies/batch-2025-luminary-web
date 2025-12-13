@@ -194,7 +194,7 @@ function RenderBook(){
 
     const [user, setUser] = useState<any>(null);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const menuRef = useRef<HTMLDivElement|null>(null);
+    const menuRef = useRef<any>(null);
     useEffect(()=>{
         const fetchUser = async() => {
             const {
