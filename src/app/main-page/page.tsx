@@ -71,7 +71,11 @@ export default function MainPage(){
         <>  
             {sidebarEnabled ? <Sidebar setSidebarEnabled={setSidebarEnabled} userID={userData?.id}></Sidebar> : null}
             <header className={styles.mainheader}>
-                    <button onClick={()=>{setSidebarEnabled(true)}}
+                    <button onClick={()=>{
+                            if(userData){
+                                setSidebarEnabled(true)
+                            }
+                        }}
                         style={sidebarEnabled? {visibility : "hidden",} : {}}>
                          <img src="./hamburgerButton.svg" alt="hamburger-button"/>
                     </button>

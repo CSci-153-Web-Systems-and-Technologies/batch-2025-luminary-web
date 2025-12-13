@@ -9,7 +9,9 @@ import Link from 'next/link';
 export default function BookCard({imgUrl, bookID} : BookCardProp){
     const {push} = useRouter();
     function openBookDetails(){
-        push(`../../book-info-page?bookId=${bookID}`);
+        if(bookID){
+            push(`../../book-info-page?bookId=${bookID}`);
+        }
     }
 
     return(

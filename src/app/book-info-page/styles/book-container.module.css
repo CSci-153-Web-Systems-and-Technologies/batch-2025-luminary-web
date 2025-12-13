@@ -63,8 +63,10 @@ button:hover{
     gap : 10px;
 }
 .read-chapter button{
-    flex-basis : 43.5%;
+    flex-basis : 60%;
     height : 75%;
+    margin-top : 30px;
+
 }
 .read-chapter button:hover{
     cursor : pointer;

@@ -50,7 +50,10 @@ function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, 
     return(
         <div className={styles["read-chapter"]}>
             <button className={styles["read-now"]}
-            onClick={()=>{ openBook(bookTitle, author, pdfUrl)}}
+            onClick={()=>{ 
+                if(bookTitle && author && pdfUrl){
+                openBook(bookTitle, author, pdfUrl)
+            }}}
             >
                 <div className={styles["chevron-container"]}>
                     <img className={styles["chevron"]} src="/chevron-right.svg" alt="" />
@@ -59,10 +62,10 @@ function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, 
                     Read Now
                 </div>
                 </button>
-                <button className={styles["chapterlist"]} style={isChapterMode ? chapterListEnabledStyle : {}}
+                {/* <button className={styles["chapterlist"]} style={isChapterMode ? chapterListEnabledStyle : {}}
                         onClick={() => {setChapterMode(!isChapterMode)}}>
                 Chapter List
-                </button>
+                </button> */}
         </div>
     )
 }

@@ -4,9 +4,10 @@ import headerStyles from './styles/header.module.css';
 
 import "react-pdf/dist/Page/TextLayer.css";
 import "react-pdf/dist/Page/AnnotationLayer.css";
-import { useState, useEffect, Suspense } from "react";
+import { useState, useEffect, Suspense, useRef } from "react";
 import dynamic from "next/dynamic";
 import PDFViewer from "./components/PDFViewer";
+import MobileMenu from "./components/MobileMenu";
 import { useRouter } from 'next/navigation';
 import { useSearchParams } from 'next/navigation';
 
@@ -192,6 +193,8 @@ function RenderBook(){
 
 
     const [user, setUser] = useState<any>(null);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement>(null);
     useEffect(()=>{
         const fetchUser = async() => {
             const {
@@ -353,6 +356,15 @@ function RenderBook(){
         fetchBookmarksData();
     }
 
+
+    function handleMenu(){
+        setIsMenuOpen(!isMenuOpen);
+    }
+
+    const handleMenuOptionClick = (modalMode: ModalMode) => {
+        setModalMode(modalMode);
+        setIsMenuOpen(false);
+    };
     return(
             <>
                
@@ -374,6 +386,13 @@ function RenderBook(){
                 fetchNotesData={fetchNoteData}
                 page={pageNumber}
                 ></Modal>
+
+                <MobileMenu 
+                isOpen={isMenuOpen}
+                onOptionClick={handleMenuOptionClick}
+                menuRef={menuRef}
+                onClose={() => setIsMenuOpen(false)}
+                />
                 
                 <header className={headerStyles['bookdoc-header']}>
                     <div className={headerStyles["left-hand-side"]}>
@@ -412,7 +431,7 @@ function RenderBook(){
                         </button>
 
 
-                        <button className={headerStyles["mobile-img-container"]}>
+                        <button className={headerStyles["mobile-img-container"]} onClick={()=>{handleMenu()}}>
                             <img className={globalStyles['bookdoc-img']} src="hamburgerButton.svg" alt="" />
                         </button>
                     </div>
