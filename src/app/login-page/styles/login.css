@@ -1,11 +1,18 @@
 :root{
     --font-size : min(max(2.25vw, 20px), 30px);
 }
+
+.login-page{
+    height : 100vh;
+    width : 100vw;
+    /* background-color: black; */
+}
 .component-flex{
     display : flex;
-    background-color : none;
-    height : 80vh;
+    /* background-color : blue */
+    height : auto;
     padding : 30px;
+    
 }
 
 #title-component{
@@ -22,7 +29,7 @@
 
 #title-component h2{
     margin : 0;
-    /*Sets a clamp so that the font-size 
+    /*amp so that the font-size 
     responsively adjusts between 40px and 90px
     based on aspect ratio.*/
     font-size : min(max(8vw, 40px), 100px);
@@ -46,8 +53,10 @@
     letter-spacing: 5px;
 }
 form{
-    height : 100%;
-    width : 50%;
+    height : auto;
+    width : auto;
+    padding : 0px;
+    margin:0px;
 }
 #login-component{
     display : flex;
@@ -159,6 +168,7 @@ form{
         align-items: center;
         padding : 0px;
         gap : 10px;
+        
     }
     #title-component{
         gap : 15px;
