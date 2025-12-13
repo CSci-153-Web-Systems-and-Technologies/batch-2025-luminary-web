@@ -6,13 +6,13 @@ import { ModalMode } from "../page";
 interface MobileMenuProps {
   isOpen: boolean;
   onOptionClick: (modalMode: ModalMode) => void;
-  menuRef: React.RefObject<HTMLDivElement>;
+  menuRef: React.RefObject<HTMLDivElement> | null;
 }
 
 interface MobileMenuProps {
   isOpen: boolean;
   onOptionClick: (modalMode: ModalMode) => void;
-  menuRef: React.RefObject<HTMLDivElement>;
+  menuRef: React.RefObject<HTMLDivElement> | null;
   onClose: () => void;
 }
 
