@@ -12,17 +12,17 @@ interface PublishBookProps{
 export default function PublishBook({userID, full_name, setModalMode} : PublishBookProps){
     const supabase = createClient();
     const [title, setTitle] = useState("");
-    const [genre, setGenre] = useState("");
     const [summary, setSummary] = useState("");
     const [coverFile, setCoverFile] = useState<File | null>(null);
     const [pdfFile, setPdfFile] = useState<File | null>(null);
+    const [genre, setGenre] = useState("Fantasy");
 
     function updateTitle(e : React.ChangeEvent<HTMLInputElement>){
         setTitle(e.currentTarget.value);
     }
 
-    function updateGenre(e : React.ChangeEvent<HTMLInputElement>){
-        setGenre(e.currentTarget.value);
+    function updateGenre(e : React.ChangeEvent<HTMLSelectElement>){
+        setGenre(e.target.value);
     }
 
     function updateSummary(e : React.ChangeEvent<HTMLTextAreaElement>){
@@ -148,14 +148,18 @@ export default function PublishBook({userID, full_name, setModalMode} : PublishB
 
                         <div className={styles['field']}>
                             <label htmlFor="genre">Genre</label>
-                            <input 
+                            {/* <input 
                                 type="text" 
                                 id="genre"
                                 onChange={updateGenre} 
                                 value={genre}
                                 placeholder="Book Genre"
                                 name="genre" 
-                            />
+                            /> */}
+                            <select value={genre} name="genre" id="genre" onChange={updateGenre}>
+                                <option value="Fantasy">Fantasy</option>
+                                <option value="Romance">Romance</option>
+                            </select>
                         </div>
 
                         <div className={styles['field']}>
