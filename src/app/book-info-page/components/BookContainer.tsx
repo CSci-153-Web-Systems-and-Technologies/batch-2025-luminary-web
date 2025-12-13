@@ -59,10 +59,10 @@ function ReadChapter({bookID, isChapterMode, setChapterMode, bookTitle, author, 
                     Read Now
                 </div>
                 </button>
-                <button className={styles["chapterlist"]} style={isChapterMode ? chapterListEnabledStyle : {}}
+                {/* <button className={styles["chapterlist"]} style={isChapterMode ? chapterListEnabledStyle : {}}
                         onClick={() => {setChapterMode(!isChapterMode)}}>
                 Chapter List
-                </button>
+                </button> */}
         </div>
     )
 }

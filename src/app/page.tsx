@@ -12,10 +12,7 @@ export default function Home() {
   useEffect(() => {
     const fetchUser = async()=>{
       const {data : {user}, error} = await supabase.auth.getUser();
-      if(user){
-        push('/main-page');
-      }
-      else{
+      if(!user){
         push('/login-page');
       }
     }
