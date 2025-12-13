@@ -1,5 +1,5 @@
 "use client";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
 import dynamic from "next/dynamic";
 import "react-pdf/dist/Page/TextLayer.css";
@@ -23,18 +23,36 @@ interface PDFViewerClientProps{
 }
 
 const PDFViewerClient = ( {book_url, pageNumber, numPages, setNumPages} : PDFViewerClientProps) => {
+  const isSSR = typeof window === "undefined";
 
   const file = useMemo(() => ({book_url}), [book_url])
-
+  const [isMobile, setIsMobile] = useState(false)
   const onDocumentLoadSuccess = ({ numPages } : {numPages : number}) => {
     setNumPages(numPages);
   };
 
-  
+  function handleWindowSizeChange(){
+    setIsMobile(window.innerWidth <= 700);
+  }
 
+  useEffect(
+  ()=>{
+    const handleWindow = ()=>
+    {
+      handleWindowSizeChange();
+    }
+    handleWindow();
+  }
+  , [])
 
+  useEffect(() => {
+          window.addEventListener('resize', handleWindowSizeChange);
+          return () => {
+              window.removeEventListener('resize', handleWindowSizeChange);
+          };
+      }, []);
   return (
-    <div className="div-container" style={{ height : "100%", width : "100%"}}>
+    <div className="div-container" style={{ height : "100%", width : "100%",}}>
       
       <div
         style={{
@@ -72,7 +90,7 @@ const PDFViewerClient = ( {book_url, pageNumber, numPages, setNumPages} : PDFVie
             renderTextLayer={true}
             renderAnnotationLayer={true}
             // height={639}
-            width={800}
+            width={isMobile ? 550 : 800}
           />
         </Document>
       </div>
