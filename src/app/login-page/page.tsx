@@ -12,6 +12,9 @@ export default function LoginPage(){
     const signUp = () => {
         push('../sign-up');
     }
+    const forgotPassword = () => {
+        push('/forgot-password');
+    }
 
     useEffect(
         ()=>{
@@ -41,7 +44,7 @@ export default function LoginPage(){
                         <h2>Sign In</h2>
                         <input id="email" type="email" name="email" placeholder="E-Mail address" required/>
                         <input id="password" type="password" name="password" placeholder="Password" required/>
-                        <button className="forgot-password">Forgot Password?</button>
+                        <button type="button" className="forgot-password" onClick={forgotPassword}>Forgot Password?</button>
                         <button type="submit" className="sign-in"
                         formAction={login}
                         >Sign in</button>
