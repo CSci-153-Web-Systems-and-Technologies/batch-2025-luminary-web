@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "../../../utils/supabase/client";
 import "./styles/reset-password.css";
 
-export default function ResetPasswordPage() {
-  const supabase = createClient();
+
+function PageToRender(){
+     const supabase = createClient();
   const router = useRouter();
   const searchParams = useSearchParams();
   const [newPassword, setNewPassword] = useState("");
@@ -147,4 +148,11 @@ export default function ResetPasswordPage() {
       </div>
     </div>
   );
+}
+export default function ResetPasswordPage() {
+    return(
+        <Suspense>
+            <PageToRender></PageToRender>
+        </Suspense>
+    )
 }
