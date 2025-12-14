@@ -1,36 +1,50 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
+
+## LUMINARY
+
+Luminary is a community-driven e-book reading and publishing platform that gives users access to books, and other documents conveniently for entertainment, documentation and annotationb. 
+
+
 ## Getting Started
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Open [https://luminary-books.vercel.app/login-page](https://luminary-books.vercel.app/login-page) with your browser to see the result.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You can choose to sign up if you haven't created your account yet, or sign in in one of two ways if you have:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Log-in with credentials via e-mail and password.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+or Sign-in with E-Mail.
 
-## Learn More
+On log in, you will be redirected to a catalog of books you can select from at your convenience.
 
-To learn more about Next.js, take a look at the following resources:
+##Tech-Stack
+- Next.js + TypeScript
+- CSS
+- Supabase/PostgreSQL for the backend
+- Vercel for Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+##Project Structure
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- src/app/ - Source for main pages and route handlers.
+- src/app/general-components - Components that can be used in more than one page.
+- src/ap/(page)/components - Components that are specific to the page it is stored in.
+- src/app/(page)/styles - Styles specific to the page it is stored in.
+- src/app/styles - Styling commonly shared by every page.
 
-## Deploy on Vercel
+##Features
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+In this project, users are able to:
+- View books
+- Take notes of excerpts within specific books
+- Bookmark specific pages.
+- Keep track of their current read and the page they last left off.
+- Keep a collection/playlist of books.
+- Post a book that will be pending for approval until the admin's permission.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+##Planned / Coming Soon
+- An activity tracker that keeps track of a reader's activity.
+- A statistics area for writers in their specific profile page.
+- Access to profile pages of other specific users for interactivity among other users.
+- An integrated Gemini API for guidance with annotation and note-taking in the book being read. 
